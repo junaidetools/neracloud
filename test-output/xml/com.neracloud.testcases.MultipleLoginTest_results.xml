@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Default test"
+           tests="6"
+           failures="0"
+           errors="0"
+           skipped="0"
+           time="80.890">
+    <properties></properties>
+
+
+
+            <testcase
+                name="TC001_Login_verifyMultipleLogin"
+                time="19.376"
+                classname="com.neracloud.testcases.MultipleLoginTest">
+            </testcase>
+            <testcase
+                name="TC001_Login_verifyMultipleLogin"
+                time="8.392"
+                classname="com.neracloud.testcases.MultipleLoginTest">
+            </testcase>
+            <testcase
+                name="TC001_Login_verifyMultipleLogin"
+                time="8.412"
+                classname="com.neracloud.testcases.MultipleLoginTest">
+            </testcase>
+            <testcase
+                name="TC001_Login_verifyMultipleLogin"
+                time="16.702"
+                classname="com.neracloud.testcases.MultipleLoginTest">
+            </testcase>
+            <testcase
+                name="TC001_Login_verifyMultipleLogin"
+                time="16.907"
+                classname="com.neracloud.testcases.MultipleLoginTest">
+            </testcase>
+            <testcase
+                name="TC001_Login_verifyMultipleLogin"
+                time="11.101"
+                classname="com.neracloud.testcases.MultipleLoginTest">
+            </testcase>
+</testsuite>
