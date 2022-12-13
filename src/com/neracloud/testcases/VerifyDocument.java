@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
+
 
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
@@ -25,7 +25,7 @@ public class VerifyDocument {
 	WebDriver driver;
 	String pdfUrl;
 
-	private SoftAssert softAssert = new SoftAssert();
+
 
 	@SuppressWarnings("deprecation")
 	@Test
@@ -94,14 +94,14 @@ public class VerifyDocument {
 				"//*[contains(text(),'If you have made any changes that are not saved yet, all the changes will be lost. Are you sure you want to continue?')]"))
 				.getText();
 		System.out.println(errorMessage);
-		logger.log(LogStatus.INFO, "Error message popup shown");
+		logger.log(LogStatus.PASS, "Error message popup shown");
 
 		// Code below this line was happening only at home. there was popup message
 		// shown at home but not being faced at office
 		String errorMessage2 = driver.findElement(By.xpath("//*[contains(@class, 'unsavedChangesModal modal-footer')]"))
 				.getText();
 		System.out.println(errorMessage2);
-		logger.log(LogStatus.INFO, "Text from modal footer fetched.");
+		logger.log(LogStatus.PASS, "Text from modal footer fetched.");
 
 		// This thread sleep is used to wait for the time till loader is shown on the
 		// popup message.
@@ -115,7 +115,7 @@ public class VerifyDocument {
 		String yesbutton = driver.findElement(By.xpath("//*[contains(text(),'Yes')]")).getText();
 		System.out.println(yesbutton);
 		driver.findElement(By.xpath("//*[contains(text(),'Yes')]")).click();
-		logger.log(LogStatus.INFO, "Yes is selected on popup to continue...");
+		logger.log(LogStatus.PASS, "Yes is selected on popup to continue...");
 
 		System.out.println("YEs is selected on popup to continue");
 
@@ -155,19 +155,19 @@ public class VerifyDocument {
 		driver.findElement(By.xpath(
 				"//*[contains(@class, 'rt-tr-group')][1]//*[contains(@class,'rt-td')][5]//*[contains(@class,'btn-group')]//*[contains(text(),'Edit')]"))
 				.click();
-		logger.log(LogStatus.INFO, "Register Tabe is selected");
+		logger.log(LogStatus.PASS, "Register Tabe is selected");
 		driver.manage().timeouts().implicitlyWait(140, TimeUnit.SECONDS);
-		Thread.sleep(10000);
+		Thread.sleep(15000);
 
 		driver.findElement(By.id("step_7")).click();
 		// driver.findElement(By.xpath("//li[@id='step_7']")).click();
-		logger.log(LogStatus.INFO, "Step 7 is selected. ");
-		Thread.sleep(2000);
+		logger.log(LogStatus.PASS, "Step 7 is selected. ");
+		Thread.sleep(3000);
 
 		// driver.findElement(By.name("previewfinalizeagreement")).click();
 		driver.findElement(By.xpath("//*[contains(text(),'Preview Agreement')]")).click();
-		logger.log(LogStatus.INFO, "Preview document is clicked now...");
-		Thread.sleep(40000);
+		logger.log(LogStatus.PASS, "Preview document is clicked now...");
+		Thread.sleep(45000);
 
 		WebElement filePath = driver.findElement(By.id("download_btn_file"));
 		String file = filePath.getAttribute("href");
@@ -189,61 +189,182 @@ public class VerifyDocument {
 		 * @Test public void VerifyTextPara() throws Exception {
 		 */
 		String paratext = PdfReader.verifyPdf(fileaddress);
+		
+		
+	    //Test Case Number 1
+		logger = report.startTest("Verify Part A");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part A – Charter of Aged Care Rights"), "Part A verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		
+		 //Test Case Number 2
+		logger = report.startTest("Verify Part B");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part B – Care and Accommodation"), "Part B verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
 
-		softAssert.assertTrue(paratext.contains("Part A – Charter of Aged Care Rights"), "Part A verification failed.");
-		System.out.println("Para A have been verified.");
-		logger.log(LogStatus.PASS, "Para A have been verified....");
 
-		softAssert.assertTrue(paratext.contains("Part B – Care and Accommodation"), "Part B verification failed.");
-		System.out.println("Para B have been verified.");
-		logger.log(LogStatus.PASS, "Para B have been verified....");
 
-		softAssert.assertTrue(paratext.contains("Part C – Fees and Payments"), "Part C verification failed.");
-		System.out.println("Para C have been verified.");
-		logger.log(LogStatus.PASS, "Para C have been verified....");
-
-		softAssert.assertTrue(
-				paratext.contains("Part D – Rights and Responsibilities – General Conditions of Occupation"),
-				"Part D verification failed.");
-		System.out.println("Para D have been verified.");
-		logger.log(LogStatus.PASS, "Para D have been verified....");
-
-		softAssert.assertTrue(paratext.contains("Part E – Rules of Occupancy"), "Part E verification failed.");
-		System.out.println("Para E have been verified.");
-		logger.log(LogStatus.PASS, "Para E have been verified....");
-
-		softAssert.assertTrue(paratext.contains("Part F – Code of Conduct"), "Part F verification failed.");
-		System.out.println("Para F have been verified.");
-		logger.log(LogStatus.PASS, "Para F have been verified....");
-
-		softAssert.assertTrue(paratext.contains("Part G – Standard Care and Services under the Aged Care Act"),
-				"Part G verification failed.");
-		System.out.println("Para G have been verified.");
-		logger.log(LogStatus.PASS, "Para G have been verified....");
-
-		softAssert.assertTrue(paratext.contains("Part H – Additional Services"), "Part H verification failed.");
-		System.out.println("Para H have been verified.");
-		logger.log(LogStatus.PASS, "Para H have been verified.");
-
-		softAssert.assertTrue(paratext.contains("Part I – Extra Conditions"), "Part I verification failed.");
-		System.out.println("Para I have been verified.");
-		logger.log(LogStatus.PASS, "Para I have been verified.");
-
-		softAssert.assertTrue(paratext.contains("Part J - Definitions"), "Part J verification failed.");
-		System.out.println("Para J have been verified.");
-		logger.log(LogStatus.PASS, "Para J have been verified.");
-
-		softAssert.assertTrue(paratext.contains("Part K – Permanent Annexure zohaib"), "Part K verification failed.");
-		System.out.println("Para K have been verified.");
-		logger.log(LogStatus.PASS, "Para K have been verified.");
-
-		softAssert.assertTrue(paratext.contains("Part L"), "Part L verification failed.");
-		System.out.println("Para L have been verified.");
-		logger.log(LogStatus.PASS, "Para L have been verified.");
-
-		softAssert.assertAll();
+		 //Test Case Number 3
+		logger = report.startTest("Verify Part C");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part C – Fees and Payments"), "Part C verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
 
 		
+
+		 //Test Case Number 4
+		logger = report.startTest("Verify Part D");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part D – Rights and Responsibilities – General Conditions of Occupation"), "Part D verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+
+
+		 //Test Case Number 5
+		logger = report.startTest("Verify Part E");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part E – Rules of Occupancy"), "Part E verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+
+		 //Test Case Number 6
+		logger = report.startTest("Verify Part F");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part F – Code of Conduct"), "Part F verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+
+
+		
+		 //Test Case Number 7	
+		logger = report.startTest("Verify Part G");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part G – Standard Care and Services under the Aged Care Act"), "Part G verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		
+		
+		 //Test Case Number 8
+		logger = report.startTest("Verify Part H");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part H – Additional Services"), "Part H verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+
+
+
+
+		 //Test Case Number 9
+		logger = report.startTest("Verify Part I");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part I – Extra Conditions"), "Part I verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+
+
+		
+		 //Test Case Number 10
+		logger = report.startTest("Verify Part J");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part J - Definitions"), "Part J verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		
+		 //Test Case Number 11
+		logger = report.startTest("Verify Part K");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part K – Permanent Annexure zohaib"), "Part K verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+
+
+
+
+
+		 //Test Case Number 12
+		logger = report.startTest("Verify Part L");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part L"), "Part L verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+
 		report.endTest(logger);
 		//report.flush();
 		//report.close();
@@ -328,14 +449,14 @@ public class VerifyDocument {
 				"//*[contains(text(),'If you have made any changes that are not saved yet, all the changes will be lost. Are you sure you want to continue?')]"))
 				.getText();
 		System.out.println(errorMessage);
-		logger.log(LogStatus.INFO, "Error message popup shown");
+		logger.log(LogStatus.PASS, "Error message popup shown");
 
 		// Code below this line was happening only at home. there was popup message
 		// shown at home but not being faced at office
 		String errorMessage2 = driver.findElement(By.xpath("//*[contains(@class, 'unsavedChangesModal modal-footer')]"))
 				.getText();
 		System.out.println(errorMessage2);
-		logger.log(LogStatus.INFO, "Text from modal footer fetched.");
+		logger.log(LogStatus.PASS, "Text from modal footer fetched.");
 
 		// This thread sleep is used to wait for the time till loader is shown on the
 		// popup message.
@@ -349,7 +470,7 @@ public class VerifyDocument {
 		String yesbutton = driver.findElement(By.xpath("//*[contains(text(),'Yes')]")).getText();
 		System.out.println(yesbutton);
 		driver.findElement(By.xpath("//*[contains(text(),'Yes')]")).click();
-		logger.log(LogStatus.INFO, "Yes is selected on popup to continue...");
+		logger.log(LogStatus.PASS, "Yes is selected on popup to continue...");
 
 		System.out.println("YEs is selected on popup to continue");
 
@@ -389,19 +510,19 @@ public class VerifyDocument {
 		driver.findElement(By.xpath(
 				"//*[contains(@class, 'rt-tr-group')][1]//*[contains(@class,'rt-td')][5]//*[contains(@class,'btn-group')]//*[contains(text(),'Edit')]"))
 				.click();
-		logger.log(LogStatus.INFO, "Register Tabe is selected");
+		logger.log(LogStatus.PASS, "Register Tabe is selected");
 		driver.manage().timeouts().implicitlyWait(140, TimeUnit.SECONDS);
-		Thread.sleep(10000);
+		Thread.sleep(15000);
 
 		driver.findElement(By.id("step_7")).click();
 		// driver.findElement(By.xpath("//li[@id='step_7']")).click();
-		logger.log(LogStatus.INFO, "Step 7 is selected. ");
-		Thread.sleep(2000);
+		logger.log(LogStatus.PASS, "Step 7 is selected. ");
+		Thread.sleep(3000);
 
 		// driver.findElement(By.name("previewfinalizeagreement")).click();
 		driver.findElement(By.xpath("//*[contains(text(),'Preview Agreement')]")).click();
-		logger.log(LogStatus.INFO, "Preview document is clicked now...");
-		Thread.sleep(40000);
+		logger.log(LogStatus.PASS, "Preview document is clicked now...");
+		Thread.sleep(45000);
 
 		WebElement filePath = driver.findElement(By.id("download_btn_file"));
 		String file = filePath.getAttribute("href");
@@ -424,62 +545,193 @@ public class VerifyDocument {
 		 */
 		String paratext = PdfReader.verifyPdf(fileaddress);
 
-		softAssert.assertTrue(paratext.contains("Part A – Charter of Aged Care Rights"), "Part A verification failed.");
-		System.out.println("Para A have been verified.");
-		logger.log(LogStatus.PASS, "Para A have been verified....");
+		
+		//Test Case Number 13
+		logger = report.startTest("Verify Part A");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part A – Charter of Aged Care Rights"), "Part A verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		
+		//Test Case Number 14
+		logger = report.startTest("Verify Part B");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part B – Care and Accommodation"), "Part B verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
 
-		softAssert.assertTrue(paratext.contains("Part B – Care and Accommodation"), "Part B verification failed.");
-		System.out.println("Para B have been verified.");
-		logger.log(LogStatus.PASS, "Para B have been verified....");
+		
+		
+		
+		//Test Case Number 15
+		logger = report.startTest("Verify Part C");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part C – Fees and Payments"), "Part C verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
 
-		softAssert.assertTrue(paratext.contains("Part C – Fees and Payments"), "Part C verification failed.");
-		System.out.println("Para C have been verified.");
-		logger.log(LogStatus.PASS, "Para C have been verified....");
+		
+		
+		
+		
+		
+	
+		//Test Case Number 16
+		logger = report.startTest("Verify Part D");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part D – Rights and Responsibilities – General Conditions of Occupation"), "Part D verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		
+		
+		
 
-		softAssert.assertTrue(
-				paratext.contains("Part D – Rights and Responsibilities – General Conditions of Occupation"),
-				"Part D verification failed.");
-		System.out.println("Para D have been verified.");
-		logger.log(LogStatus.PASS, "Para D have been verified....");
 
-		softAssert.assertTrue(paratext.contains("Part E – Extra Services"), "Part E verification failed.");
-		System.out.println("Para E have been verified.");
-		logger.log(LogStatus.PASS, "Para E have been verified....");
+		//Test Case Number 17
+		logger = report.startTest("Verify Part E");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part E – Extra Services"), "Part E verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		//Test Case Number 18
+		logger = report.startTest("Verify Part F");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part F – Rules of Occupancy"), "Part F verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
 
-		softAssert.assertTrue(paratext.contains("Part F – Rules of Occupancy"), "Part F verification failed.");
-		System.out.println("Para F have been verified.");
-		logger.log(LogStatus.PASS, "Para F have been verified....");
 
-		softAssert.assertTrue(paratext.contains("Part G – Code of Conduct"),
-				"Part G verification failed.");
-		System.out.println("Para G have been verified.");
-		logger.log(LogStatus.PASS, "Para G have been verified....");
 
-		softAssert.assertTrue(paratext.contains("Part H – Standard Care and Services under the Aged Care Act"), "Part H verification failed.");
-		System.out.println("Para H have been verified.");
-		logger.log(LogStatus.PASS, "Para H have been verified.");
+		
+		//Test Case Number 19
+		logger = report.startTest("Verify Part G");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part G – Code of Conduct"), "Part G verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
 
-		softAssert.assertTrue(paratext.contains("Part I – Additional Services"), "Part I verification failed.");
-		System.out.println("Para I have been verified.");
-		logger.log(LogStatus.PASS, "Para I have been verified.");
+		
+		
+		
+		
+		
+		//Test Case Number 20
+		logger = report.startTest("Verify Part H");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part H – Standard Care and Services under the Aged Care Act"), "Part H verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		
+		
+		//Test Case Number 21
+		logger = report.startTest("Verify Part I");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part I – Additional Services"), "Part I verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
 
-		softAssert.assertTrue(paratext.contains("Part J – Extra Conditions"), "Part J verification failed.");
-		System.out.println("Para J have been verified.");
-		logger.log(LogStatus.PASS, "Para J have been verified.");
 
-		softAssert.assertTrue(paratext.contains("Part K - Definitions"), "Part K verification failed.");
-		System.out.println("Para K have been verified.");
-		logger.log(LogStatus.PASS, "Para K have been verified.");
+		
+		//Test Case Number 22
+		logger = report.startTest("Verify Part J");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part J – Extra Conditions"), "Part J verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
 
-		softAssert.assertTrue(paratext.contains("Part L"), "Part L verification failed.");
-		System.out.println("Para L have been verified.");
-		logger.log(LogStatus.PASS, "Para L have been verified.");
 
-		softAssert.assertAll();
+		//Test Case Number 23
+		logger = report.startTest("Verify Part K");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part K - Definitions"), "Part K verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		
+		
+		//Test Case Number 23
+		logger = report.startTest("Verify Part L");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part L"), "Part L verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
 
 		report.endTest(logger);
-		report.flush();
-		report.close();
+		//report.flush();
+		//report.close();
 		driver.quit();
 		// }
 
@@ -561,14 +813,14 @@ public class VerifyDocument {
 				"//*[contains(text(),'If you have made any changes that are not saved yet, all the changes will be lost. Are you sure you want to continue?')]"))
 				.getText();
 		System.out.println(errorMessage);
-		logger.log(LogStatus.INFO, "Error message popup shown");
+		logger.log(LogStatus.PASS, "Error message popup shown");
 
 		// Code below this line was happening only at home. there was popup message
 		// shown at home but not being faced at office
 		String errorMessage2 = driver.findElement(By.xpath("//*[contains(@class, 'unsavedChangesModal modal-footer')]"))
 				.getText();
 		System.out.println(errorMessage2);
-		logger.log(LogStatus.INFO, "Text from modal footer fetched.");
+		logger.log(LogStatus.PASS, "Text from modal footer fetched.");
 
 		// This thread sleep is used to wait for the time till loader is shown on the
 		// popup message.
@@ -582,7 +834,7 @@ public class VerifyDocument {
 		String yesbutton = driver.findElement(By.xpath("//*[contains(text(),'Yes')]")).getText();
 		System.out.println(yesbutton);
 		driver.findElement(By.xpath("//*[contains(text(),'Yes')]")).click();
-		logger.log(LogStatus.INFO, "Yes is selected on popup to continue...");
+		logger.log(LogStatus.PASS, "Yes is selected on popup to continue...");
 
 		System.out.println("YEs is selected on popup to continue");
 
@@ -622,19 +874,19 @@ public class VerifyDocument {
 		driver.findElement(By.xpath(
 				"//*[contains(@class, 'rt-tr-group')][1]//*[contains(@class,'rt-td')][5]//*[contains(@class,'btn-group')]//*[contains(text(),'Edit')]"))
 				.click();
-		logger.log(LogStatus.INFO, "Register Tabe is selected");
+		logger.log(LogStatus.PASS, "Register Tabe is selected");
 		driver.manage().timeouts().implicitlyWait(140, TimeUnit.SECONDS);
-		Thread.sleep(10000);
+		Thread.sleep(15000);
 
 		driver.findElement(By.id("step_7")).click();
 		// driver.findElement(By.xpath("//li[@id='step_7']")).click();
-		logger.log(LogStatus.INFO, "Step 7 is selected. ");
-		Thread.sleep(2000);
+		logger.log(LogStatus.PASS, "Step 7 is selected. ");
+		Thread.sleep(3000);
 
 		// driver.findElement(By.name("previewfinalizeagreement")).click();
 		driver.findElement(By.xpath("//*[contains(text(),'Preview Agreement')]")).click();
-		logger.log(LogStatus.INFO, "Preview document is clicked now...");
-		Thread.sleep(40000);
+		logger.log(LogStatus.PASS, "Preview document is clicked now...");
+		Thread.sleep(45000);
 
 		WebElement filePath = driver.findElement(By.id("download_btn_file"));
 		String file = filePath.getAttribute("href");
@@ -656,60 +908,198 @@ public class VerifyDocument {
 		 * @Test public void VerifyTextPara() throws Exception {
 		 */
 		String paratext = PdfReader.verifyPdf(fileaddress);
-
-		softAssert.assertTrue(paratext.contains("Part A – Charter of Aged Care Rights"), "Part A verification failed.");
-		System.out.println("Para A have been verified.");
-		logger.log(LogStatus.PASS, "Para A have been verified....");
-
-		softAssert.assertTrue(paratext.contains("Part B – Care and Services"), "Part B verification failed.");
-		System.out.println("Para B have been verified.");
-		logger.log(LogStatus.PASS, "Para B have been verified....");
-
-		softAssert.assertTrue(paratext.contains("Part C – Fees and Payments"), "Part C verification failed.");
-		System.out.println("Para C have been verified.");
-		logger.log(LogStatus.PASS, "Para C have been verified....");
-
-		softAssert.assertTrue(
-				paratext.contains("Part D – Rights and Responsibilities – General Conditions of Occupation"),
-				"Part D verification failed.");
-		System.out.println("Para D have been verified.");
-		logger.log(LogStatus.PASS, "Para D have been verified....");
-
-		softAssert.assertTrue(paratext.contains("Part E – Rules of Occupancy"), "Part E verification failed.");
-		System.out.println("Para E have been verified.");
-		logger.log(LogStatus.PASS, "Para E have been verified....");
-
-		softAssert.assertTrue(paratext.contains("Part F – Code of Conduct"), "Part F verification failed.");
-		System.out.println("Para F have been verified.");
-		logger.log(LogStatus.PASS, "Para F have been verified....");
-
-		softAssert.assertTrue(paratext.contains("Part G – Standard Care and Services under the Aged Care Act"),
-				"Part G verification failed.");
-		System.out.println("Para G have been verified.");
-		logger.log(LogStatus.PASS, "Para G have been verified....");
-
-		softAssert.assertTrue(paratext.contains("Part H – Additional Services"), "Part H verification failed.");
-		System.out.println("Para H have been verified.");
-		logger.log(LogStatus.PASS, "Para H have been verified.");
-
-		softAssert.assertTrue(paratext.contains("Part I – Extra Conditions"), "Part I verification failed.");
-		System.out.println("Para I have been verified.");
-		logger.log(LogStatus.PASS, "Para I have been verified.");
-
-		softAssert.assertTrue(paratext.contains("Part J - Definitions"), "Part J verification failed.");
-		System.out.println("Para J have been verified.");
-		logger.log(LogStatus.PASS, "Para J have been verified.");
-
-		softAssert.assertTrue(paratext.contains("Part K – Respite Annexure"), "Part K verification failed.");
-		System.out.println("Para K have been verified.");
-		logger.log(LogStatus.PASS, "Para K have been verified.");
-
-
-		softAssert.assertAll();
-
+		
+		
+		
+		
+		//Test Case Number 24
+		logger = report.startTest("Verify Part A");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part A – Charter of Aged Care Rights"), "Part A verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
 		report.endTest(logger);
-		report.flush();
-		report.close();
+
+		
+		
+		
+		
+		//Test Case Number 25
+		logger = report.startTest("Verify Part B");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part B – Care and Services"), "Part B verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		
+		
+		
+		//Test Case Number 26
+		logger = report.startTest("Verify Part C");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part C – Fees and Payments"), "Part C verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+
+
+
+
+		
+		
+		//Test Case Number 27
+		logger = report.startTest("Verify Part D");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part D – Rights and Responsibilities – General Conditions of Occupation"), "Part D verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		
+		
+		
+		
+		//Test Case Number 28
+		logger = report.startTest("Verify Part E");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part E – Rules of Occupancy"), "Part E verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+
+
+		
+		//Test Case Number 29
+		logger = report.startTest("Verify Part F");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part F – Code of Conduct"), "Part F verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		
+		
+		//Test Case Number 30
+		logger = report.startTest("Verify Part G");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part G – Standard Care and Services under the Aged Care Act"), "Part G verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+
+
+		
+		//Test Case Number 31
+		logger = report.startTest("Verify Part H");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part H – Additional Services"), "Part H verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		
+		
+		//Test Case Number 32
+		logger = report.startTest("Verify Part I");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part I – Extra Conditions"), "Part I verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		
+		
+		//Test Case Number 33
+		logger = report.startTest("Verify Part J");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part J - Definitions"), "Part J verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+
+
+		
+		//Test Case Number 33
+		logger = report.startTest("Verify Part J");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part J - Definitions"), "Part J verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		
+		//Test Case Number 33
+		logger = report.startTest("Verify Part K");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part K – Respite Annexure"), "Part K verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		report.endTest(logger);
+		//report.flush();
+		//report.close();
 		driver.quit();
 		// }
 
@@ -790,14 +1180,14 @@ public class VerifyDocument {
 				"//*[contains(text(),'If you have made any changes that are not saved yet, all the changes will be lost. Are you sure you want to continue?')]"))
 				.getText();
 		System.out.println(errorMessage);
-		logger.log(LogStatus.INFO, "Error message popup shown");
+		logger.log(LogStatus.PASS, "Error message popup shown");
 
 		// Code below this line was happening only at home. there was popup message
 		// shown at home but not being faced at office
 		String errorMessage2 = driver.findElement(By.xpath("//*[contains(@class, 'unsavedChangesModal modal-footer')]"))
 				.getText();
 		System.out.println(errorMessage2);
-		logger.log(LogStatus.INFO, "Text from modal footer fetched.");
+		logger.log(LogStatus.PASS, "Text from modal footer fetched.");
 
 		// This thread sleep is used to wait for the time till loader is shown on the
 		// popup message.
@@ -811,7 +1201,7 @@ public class VerifyDocument {
 		String yesbutton = driver.findElement(By.xpath("//*[contains(text(),'Yes')]")).getText();
 		System.out.println(yesbutton);
 		driver.findElement(By.xpath("//*[contains(text(),'Yes')]")).click();
-		logger.log(LogStatus.INFO, "Yes is selected on popup to continue...");
+		logger.log(LogStatus.PASS, "Yes is selected on popup to continue...");
 
 		System.out.println("YEs is selected on popup to continue");
 
@@ -851,19 +1241,19 @@ public class VerifyDocument {
 		driver.findElement(By.xpath(
 				"//*[contains(@class, 'rt-tr-group')][1]//*[contains(@class,'rt-td')][5]//*[contains(@class,'btn-group')]//*[contains(text(),'Edit')]"))
 				.click();
-		logger.log(LogStatus.INFO, "Register Tabe is selected");
+		logger.log(LogStatus.PASS, "Register Tabe is selected");
 		driver.manage().timeouts().implicitlyWait(140, TimeUnit.SECONDS);
-		Thread.sleep(10000);
+		Thread.sleep(15000);
 
 		driver.findElement(By.id("step_7")).click();
 		// driver.findElement(By.xpath("//li[@id='step_7']")).click();
-		logger.log(LogStatus.INFO, "Step 7 is selected. ");
-		Thread.sleep(2000);
+		logger.log(LogStatus.PASS, "Step 7 is selected. ");
+		Thread.sleep(3000);
 
 		// driver.findElement(By.name("previewfinalizeagreement")).click();
 		driver.findElement(By.xpath("//*[contains(text(),'Preview Agreement')]")).click();
-		logger.log(LogStatus.INFO, "Preview document is clicked now...");
-		Thread.sleep(40000);
+		logger.log(LogStatus.PASS, "Preview document is clicked now...");
+		Thread.sleep(45000);
 
 		WebElement filePath = driver.findElement(By.id("download_btn_file"));
 		String file = filePath.getAttribute("href");
@@ -886,55 +1276,177 @@ public class VerifyDocument {
 		 */
 		String paratext = PdfReader.verifyPdf(fileaddress);
 
-		softAssert.assertTrue(paratext.contains("Part A – Charter of Aged Care Rights"), "Part A verification failed.");
-		System.out.println("Para A have been verified.");
-		logger.log(LogStatus.PASS, "Para A have been verified....");
+		
+		
+		
+		//Test Case Number 34
+		logger = report.startTest("Verify Part A");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part A – Charter of Aged Care Rights"), "Part A verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		
+		
+		
+		//Test Case Number 35
+		logger = report.startTest("Verify Part B");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part B – Care and Services"), "Part B verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		
+		
+		//Test Case Number 36
+		logger = report.startTest("Verify Part C");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part C – Fees and Payments"), "Part C verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
 
-		softAssert.assertTrue(paratext.contains("Part B – Care and Services"), "Part B verification failed.");
-		System.out.println("Para B have been verified.");
-		logger.log(LogStatus.PASS, "Para B have been verified....");
 
-		softAssert.assertTrue(paratext.contains("Part C – Fees and Payments"), "Part C verification failed.");
-		System.out.println("Para C have been verified.");
-		logger.log(LogStatus.PASS, "Para C have been verified....");
+		
+		//Test Case Number 37
+		logger = report.startTest("Verify Part D");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part D – Rights and Responsibilities – General Conditions of Occupation"), "Part D verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		
+		
+		
+		//Test Case Number 37
+		logger = report.startTest("Verify Part E");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part E – Extra Services"), "Part E verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		
+		
+		
+		//Test Case Number 38
+		logger = report.startTest("Verify Part F");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part F – Rules of Occupancy"), "Part F verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		
+		
+		
 
-		softAssert.assertTrue(
-				paratext.contains("Part D – Rights and Responsibilities – General Conditions of Occupation"),
-				"Part D verification failed.");
-		System.out.println("Para D have been verified.");
-		logger.log(LogStatus.PASS, "Para D have been verified....");
+		//Test Case Number 38
+		logger = report.startTest("Verify Part G");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part G – Code of Conduct"), "Part G verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		
+		//Test Case Number 39
+		logger = report.startTest("Verify Part H");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part H – Standard Care and Services under the Aged Care Act"), "Part H verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		
+		
+		//Test Case Number 40
+		logger = report.startTest("Verify Part I");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part I – Additional Services"), "Part I verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		
 
-		softAssert.assertTrue(paratext.contains("Part E – Extra Services"), "Part E verification failed.");
-		System.out.println("Para E have been verified.");
-		logger.log(LogStatus.PASS, "Para E have been verified....");
 
-		softAssert.assertTrue(paratext.contains("Part F – Rules of Occupancy"), "Part F verification failed.");
-		System.out.println("Para F have been verified.");
-		logger.log(LogStatus.PASS, "Para F have been verified....");
 
-		softAssert.assertTrue(paratext.contains("Part G – Code of Conduct"),
-				"Part G verification failed.");
-		System.out.println("Para G have been verified.");
-		logger.log(LogStatus.PASS, "Para G have been verified....");
-
-		softAssert.assertTrue(paratext.contains("Part H – Standard Care and Services under the Aged Care Act"), "Part H verification failed.");
-		System.out.println("Para H have been verified.");
-		logger.log(LogStatus.PASS, "Para H have been verified.");
-
-		softAssert.assertTrue(paratext.contains("Part I – Additional Services"), "Part I verification failed.");
-		System.out.println("Para I have been verified.");
-		logger.log(LogStatus.PASS, "Para I have been verified.");
-
-		softAssert.assertTrue(paratext.contains("Part J – Extra Conditions"), "Part J verification failed.");
-		System.out.println("Para J have been verified.");
-		logger.log(LogStatus.PASS, "Para J have been verified.");
-
-		softAssert.assertTrue(paratext.contains("Part K – Definitions"), "Part K verification failed.");
-		System.out.println("Para K have been verified.");
-		logger.log(LogStatus.PASS, "Para K have been verified.");
-
-		softAssert.assertAll();
-
+		//Test Case Number 41
+		logger = report.startTest("Verify Part J");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part J – Extra Conditions"), "Part J verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);
+		
+		
+		
+		//Test Case Number 42
+		logger = report.startTest("Verify Part K");
+		
+		try{
+		    //Assertion to be placed here
+			Assert.assertTrue(paratext.contains("Part K – Definitions"), "Part K verification failed.");
+		    logger.log(LogStatus.PASS, "Pass");
+		} catch(AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail");
+		}
+		report.endTest(logger);	
+		
 		report.endTest(logger);
 		report.flush();
 		report.close();

@@ -5,7 +5,9 @@
     <classes>
       <class name="com.neracloud.testcases.VerifyDocument">
         <methods>
+          <include name="TC003_VerifyRespiteAgreementSections"/>
           <include name="TC002_VerifyPermanentExtraAgreementSections"/>
+          <include name="TC004_VerifyRespiteExtraAgreementSections"/>
         </methods>
       </class> <!-- com.neracloud.testcases.VerifyDocument -->
     </classes>
