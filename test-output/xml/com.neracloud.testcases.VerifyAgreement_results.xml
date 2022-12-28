@@ -4,14 +4,14 @@
            failures="0"
            errors="0"
            skipped="0"
-           time="133.437">
+           time="96.732">
     <properties></properties>
 
 
 
             <testcase
                 name="TC001_VerifyPermanentAgreementSections"
-                time="133.437"
+                time="96.732"
                 classname="com.neracloud.testcases.VerifyAgreement">
             </testcase>
 </testsuite>

@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.testng.Assert;
 
 public class loginPage {
 	
@@ -53,11 +54,14 @@ public class loginPage {
 		//Thread.sleep(5000);
 		password.sendKeys(pass);
 		login_button.click();
-		System.out.println("Login Successful.");
+		System.out.println("Login to Gateway is successful.");
 		//Thread.sleep(75000);
 		selectNera.click();
-		System.out.println("Access to NeRA is successful.");
+		System.out.println("Access to NeRA Cloud application is successful.");
 		//Thread.sleep(5000);
+		
+		WebElement neraLogo = selectNera;
+		Assert.assertTrue(neraLogo.isDisplayed(), "AWS Cognito Identity user loging failed with username: " + uid);
 		
 	}
 	

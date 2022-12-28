@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Default test"
+           tests="1"
+           failures="0"
+           errors="0"
+           skipped="0"
+           time="49.333">
+    <properties></properties>
+
+
+
+            <testcase
+                name="TC001_VerifyInquiryCreationOfTypePermanent"
+                time="49.333"
+                classname="com.neracloud.testcases.VerifyUserCreation">
+            </testcase>
+</testsuite>

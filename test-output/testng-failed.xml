@@ -3,13 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.neracloud.testcases.VerifyDocument">
+      <class name="com.neracloud.testcases.VerifyUserCreation">
         <methods>
-          <include name="TC003_VerifyRespiteAgreementSections"/>
-          <include name="TC002_VerifyPermanentExtraAgreementSections"/>
-          <include name="TC004_VerifyRespiteExtraAgreementSections"/>
+          <include name="tearDown"/>
+          <include name="TC001_VerifyInquiryCreationOfTypePermanent"/>
+          <include name="setup"/>
+          <include name="endOfSuite"/>
         </methods>
-      </class> <!-- com.neracloud.testcases.VerifyDocument -->
+      </class> <!-- com.neracloud.testcases.VerifyUserCreation -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
