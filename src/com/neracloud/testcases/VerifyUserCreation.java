@@ -150,20 +150,41 @@ public class VerifyUserCreation {
 		driver.findElement(By.xpath("//*[contains(text(),'Add Enquiry')]")).click();
 
 		driver.findElement(By.xpath("//*[contains(text(),'Edit')]")).click();
+		
+		
+		String title = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "title").get("Value").toString();
+		List<WebElement> title_menu = driver.findElements(By.xpath("//*[contains(@name, 'ResidentTitleID')]/*[@value]"));
+		for (int i = 0; i < title_menu.size(); i++) {
+			WebElement element = title_menu.get(i);
+			String innerhtml = element.getAttribute("innerHTML");
+
+			if (innerhtml.contains(title)) {
+				element.click();
+				break;
+			}
+			System.out.println("values from Title drop down ===========>" + innerhtml);
+		}
 
 		String firstNam = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "firstNam").get("Value")
 				.toString();
 		driver.findElement(By.id("ResidentFirstName")).sendKeys(firstNam);
+		
+		// Fill middle name
+		String middleName = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "middleName").get("Value").toString();
+		driver.findElement(By.name("ResidentMiddleName")).sendKeys(middleName);
 
-		String lastName = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "lastName").get("Value")
-				.toString();
+		String lastName = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "lastName").get("Value").toString();
 		driver.findElement(By.name("ResidentLastName")).sendKeys(lastName);
 
-		String AddLine1 = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "AddLine1").get("Value")
-				.toString();
+		String AddLine1 = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "AddLine1").get("Value").toString();
 		driver.findElement(By.name("ResidentAddress1")).sendKeys(AddLine1);
+		
+		String AddLine2 = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "AddLine2").get("Value").toString();
+		driver.findElement(By.name("ResidentAddress2")).sendKeys(AddLine2);
+		
 
-		System.out.println("First name, last name and address line have been entered.");
+		
+		System.out.println("Title, First name, Middle Name, Last name and addresses have been entered.");
 
 		String setSuburb = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "setSuburb").get("Value")
 				.toString();
@@ -180,6 +201,17 @@ public class VerifyUserCreation {
 		logger.log(LogStatus.PASS, "verified", img);
 		
 		System.out.println("Suburb selected.");
+		
+		
+		//Thread.sleep(10000);
+		String phone = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "phone").get("Value").toString();
+		driver.findElement(By.id("ResidentPhone")).sendKeys(phone);
+		
+		String mobile = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "mobile").get("Value").toString();
+		driver.findElement(By.name("ResidentMobile")).sendKeys(mobile);
+
+		String email = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "email").get("Value").toString();
+		driver.findElement(By.name("ResidentEmail")).sendKeys(email);
 
 		driver.findElement(By.name("ResidentDateofBirth")).click();
 		// Fill date as mm/dd/yyyy as 09/25/2013
@@ -226,13 +258,13 @@ public class VerifyUserCreation {
 
 		System.out.println("Admission Type selected.");
 
-		String FirstPref = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "FirstPref").get("Value").toString();
-		
 		
 		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(20));
 		WebElement element2 = wait2.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@name, 'FirstFacPreference')]/*[@value]")));
 		element2.click();
 		
+		String FirstPref = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "FirstPref").get("Value").toString();
+			
 		//driver.findElement(By.xpath("//*[contains(@name, 'FirstFacPreference')]/*[@value]")).click();
 		//Thread.sleep(5000);
 
@@ -257,6 +289,39 @@ public class VerifyUserCreation {
 		logger.log(LogStatus.PASS, "verified", img3);
 		
 		System.out.println("First Preference selected.");
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//All fields data is started to be added from here... 
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 		//Thread.sleep(3000);
 		driver.switchTo().activeElement();
