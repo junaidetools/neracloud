@@ -19,7 +19,9 @@ File source = ts.getScreenshotAs(OutputType.FILE);
 // after execution, you could see a folder "FailedTestsScreenshots" under src folder
 String destination = System.getProperty("user.dir") + "/target/reports/Screenshots/"+ dateName + ".png";
 //Share Path For HTML
-String destination1 = "C:\\Users\\hp\\eclipse-workspace\\NeRACloud_Automation\\target\\reports\\Screenshots\\"+ dateName + ".png";
+File currentDir = new File (".");
+String basePath = currentDir.getCanonicalPath();
+String destination1 = basePath+"\\target\\reports\\Screenshots\\"+ dateName + ".png";
 File finalDestination = new File(destination);
 FileUtils.copyFile(source, finalDestination);
 return destination1;

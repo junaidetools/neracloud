@@ -1,5 +1,6 @@
 package com.neracloud.testcases;
 
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -31,7 +32,9 @@ public class VerifyAgreement {
 	@Test
 	public void TC001_VerifyPermanentAgreementSections() throws Exception {
 
-		report = new ExtentReports("C:\\Users\\hp\\eclipse-workspace\\NeRACloud_Automation\\NeRA_Cloud_Report.html");
+		File currentDir = new File (".");
+		String basePath = currentDir.getCanonicalPath();
+		report = new ExtentReports(basePath+"\\NeRA_Cloud_Report.html");
 		logger = report.startTest("TC001_VerifyPermanentAgreementSections");
 
 		String WebUrl = ExcelDriven_XLSX.readExcelData("Testdata", "Config", "URL").get("Value").toString();
