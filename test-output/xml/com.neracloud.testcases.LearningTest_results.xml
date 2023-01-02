@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Default test"
+           tests="2"
+           failures="0"
+           errors="0"
+           skipped="0"
+           time="24.429">
+    <properties></properties>
+
+
+
+            <testcase
+                name="loginAndVerifyOtherMenuOptions"
+                time="0.004"
+                classname="com.neracloud.testcases.LearningTest">
+            </testcase>
+            <testcase
+                name="loginAndVerifyMainMenuOption"
+                time="24.425"
+                classname="com.neracloud.testcases.LearningTest">
+            </testcase>
+</testsuite>

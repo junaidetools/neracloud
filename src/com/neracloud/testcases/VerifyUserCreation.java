@@ -3,6 +3,7 @@ package com.neracloud.testcases;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -37,76 +38,43 @@ public class VerifyUserCreation {
 	ExtentTest logger;
 	WebDriver driver;
 	String pdfUrl;
-
-	/*
-	 * @BeforeTest public void startReport() { }
-	 */
+	public static String episodeId = null; // It's a global String
 	
-	
-
-
 	@SuppressWarnings("deprecation")
 	@BeforeMethod
 	public void setup() throws InterruptedException, IOException 
 	{
-		File currentDir = new File (".");
-		String basePath = currentDir.getCanonicalPath();
-		report = new ExtentReports(basePath+"\\NeRA_Cloud_User_Creation_Report.html");
-		logger = report.startTest("VerifyLoginToE-ToolsCloudApplication");
-		
-		
+		//File currentDir = new File (".");
+		//String basePath = currentDir.getCanonicalPath();
+		//report = new ExtentReports(basePath+"\\NeRA_Cloud_User_Creation_Report.html");
+		//logger = report.startTest("VerifyLoginToE-ToolsCloudApplication");
+				
 		String WebUrl = ExcelDriven_XLSX.readExcelData("Testdata", "Config", "URL").get("Value").toString();
 		String browser = ExcelDriven_XLSX.readExcelData("Testdata", "Config", "Browser").get("Value").toString();
 
 		driver  = BrowserFactory.startBrowser(browser, WebUrl);
 		driver.manage().timeouts().implicitlyWait(140, TimeUnit.SECONDS);
 
-		logger.log(LogStatus.PASS, "Browser started and cloud application is accessed.");
+		//logger.log(LogStatus.PASS, "Browser started and cloud application is accessed.");
 
 		String username = ExcelDriven_XLSX.readExcelData("Testdata", "Config", "UserName").get("Value").toString();
 		String password = ExcelDriven_XLSX.readExcelData("Testdata", "Config", "Password").get("Value").toString();
-		
-		
+				
 		loginPage login_page = PageFactory.initElements(driver, loginPage.class);
-		
 		login_page.login_nera(username, password);
-		
-		// Provides email into email field.
-		//driver.findElement(By.id("email")).sendKeys(username);
-		// Click next button to proceed with provided email address.
-		//driver.findElement(By.xpath("//*[contains(text(),'Next')]")).click();
-		// Provides password in the password field.
-		//driver.findElement(By.id("loginpassword")).sendKeys(password);
-		// Click login button to login
-		//driver.findElement(By.xpath("//*[contains(@class, 'btn-login btn btn-secondary')]")).click();
-
-		//logger.log(LogStatus.PASS, "Loging was successful.");
-
-		//Thread.sleep(5000);
-
-		//WebElement neraLogo = driver.findElement(By.id("NeRAAppLogo"));
-		
-		
-		//Assert.assertTrue(neraLogo.isDisplayed(), "AWS Cognito Identity user loging failed with username: " + username);
-
-		//logger.log(LogStatus.PASS, "Home page is loaded successfully.");
-
-		//Thread.sleep(3000);
-
-		//driver.findElement(By.id("NeRAAppLogo")).click();
-		logger.log(LogStatus.PASS, "NeRA cloud application accessed successfully.");
-		
-		
-		report.endTest(logger);
+		//logger.log(LogStatus.PASS, "NeRA cloud application accessed successfully.");
+		//report.endTest(logger);
 		
 		
 	}
 	
-	
-	
-	@Test(priority=1)
+	@Test(priority=0)
 	public void TC001_VerifyInquiryCreationOfTypePermanent() throws Exception {
-
+		
+		File currentDir = new File (".");
+		String basePath = currentDir.getCanonicalPath();
+		report = new ExtentReports(basePath+"\\NeRA_Cloud_User_Creation_Report.html");
+		//logger = report.startTest("VerifyLoginToE-ToolsCloudApplication");
 		
 		logger = report.startTest("TC001_VerifyInquiryCreationOfTypePermanent");
 
@@ -115,51 +83,29 @@ public class VerifyUserCreation {
 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(360));
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
-		
-		//Thread.sleep(3000);
-		driver.switchTo().activeElement();
 
-		//Thread.sleep(10000);
-		//wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
+		driver.switchTo().activeElement();
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'If you have made any changes that are not saved yet, all the changes will be lost. Are you sure you want to continue?')]")));
 		String errorMessage = driver.findElement(By.xpath("//*[contains(text(),'If you have made any changes that are not saved yet, all the changes will be lost. Are you sure you want to continue?')]"))
 				.getText();
 		System.out.println(errorMessage);
 		logger.log(LogStatus.PASS, "Error message popup shown");
-
-		// String errorMessage2 = driver.findElement(By.xpath("//*[contains(@class,
-		// 'unsavedChangesModal modal-footer')]")).getText();
-		// System.out.println(errorMessage2);
-		//logger.log(LogStatus.PASS, "Text from modal footer fetched.");
-		//System.out.println(errorMessage);
-		//Thread.sleep(15000);
-			
 		
 		String yesbutton = driver.findElement(By.xpath("//*[contains(text(),'Yes')]")).getText();
 		System.out.println(yesbutton + ": This text from Yes button is fetched...");
 
-		//WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(120));
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
 		
-
-		
-		//WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		WebElement element1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'Yes')]")));
 		element1.click();
 		
-		
-		//driver.findElement(By.xpath("//*[contains(text(),'Yes')]")).click();
 		logger.log(LogStatus.PASS, "Yes is selected on popup to continue...");
 		System.out.println("Yes is selected on popup to continue...");
-		
-		
-		
+				
 		driver.findElement(By.xpath("//*[contains(text(),'Add Enquiry')]")).click();
-
 		
 		driver.findElement(By.xpath("//*[contains(text(),'Edit')]")).click();
-		
-		//Thread.sleep(3000);
+
 		String title = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "title").get("Value").toString();
 		List<WebElement> title_menu = driver.findElements(By.xpath("//*[contains(@name, 'ResidentTitleID')]/*[@value]"));
 		for (int i = 0; i < title_menu.size(); i++) {
@@ -201,25 +147,19 @@ public class VerifyUserCreation {
 		
 		System.out.println("Title, First name, Middle Name, Last name and addresses have been entered.");
 
-		String setSuburb = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "setSuburb").get("Value")
-				.toString();
+		String setSuburb = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "setSuburb").get("Value").toString();
 		WebElement wb = driver.findElement(By.id("ResidentSuburb"));
 		Actions action = new Actions(driver);
 		action.moveToElement(wb).click().moveToElement(wb, 200, 0).sendKeys(setSuburb, Keys.ENTER).build().perform(); // .build().perform();
-		// System.out.println("Here we need to press enter button");
-		//Thread.sleep(1000);
 		logger.log(LogStatus.PASS, "Suburb Selected.");
 
 		String image_path = snap_shot.takeSnapShot(driver);
 		System.out.println(image_path);
-		// report.addScreenCaptureFromPath(image_path);
 		String img = logger.addScreenCapture(image_path);
 		logger.log(LogStatus.PASS, "verified", img);
 		
 		System.out.println("Suburb selected.");
-		
-		
-		//Thread.sleep(10000);
+				
 		String phone = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "phone").get("Value").toString();
 		driver.findElement(By.id("ResidentPhone")).sendKeys(phone);
 		logger.log(LogStatus.PASS, "Phone number provided.");
@@ -232,7 +172,6 @@ public class VerifyUserCreation {
 		driver.findElement(By.name("ResidentEmail")).sendKeys(email);
 		logger.log(LogStatus.PASS, "Email number provided.");
 
-		//Thread.sleep(10000);
 		String residentId = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "residentId").get("Value").toString();
 		driver.findElement(By.name("ResidentID")).sendKeys(residentId);
 		logger.log(LogStatus.PASS, "Resident Id provided.");
@@ -244,7 +183,6 @@ public class VerifyUserCreation {
 		logger.log(LogStatus.PASS, "Date of Birth provided.");
 		
 		
-		//Thread.sleep(10000);
 		String gender = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "gender").get("Value").toString();
 		driver.findElement(By.xpath("//*[contains(@name, 'ResidentGenderType')]/*[@id]")).click();
 		List<WebElement> gender_menu = driver.findElements(By.xpath("//*[contains(@name, 'ResidentGenderType')]/*[@id]"));
@@ -259,8 +197,7 @@ public class VerifyUserCreation {
 			System.out.println("values from gender drop down ===========>" + innerhtml);
 		}
 		logger.log(LogStatus.PASS, "Gender Selected.");
-		
-		
+				
 		String maritalStatus = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "maritalStatus").get("Value").toString();
 		driver.findElement(By.xpath("//*[contains(@name, 'ResidentMaritalStatus')]/*[@id]")).click();
 		List<WebElement> maritalstatus_menu = driver.findElements(By.xpath("//*[contains(@name, 'ResidentMaritalStatus')]/*[@id]"));
@@ -308,8 +245,7 @@ public class VerifyUserCreation {
 		}
 		
 		logger.log(LogStatus.PASS, "Ethnicity selected.");
-		
-		
+				
 		String culturalIdentity = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "culturalIdentity").get("Value").toString();
 		driver.findElement(By.xpath("//*[contains(@name, 'ResidentCulturalIdentity')]/*[@id]")).click();
 		List<WebElement> culturalIdentity_menu = driver.findElements(By.xpath("//*[contains(@name, 'ResidentCulturalIdentity')]/*[@id]"));
@@ -325,9 +261,7 @@ public class VerifyUserCreation {
 		}
 		
 		logger.log(LogStatus.PASS, "Cultural Identity selected.");
-		
-		
-		
+			
 		
 		String religion = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "religion").get("Value").toString();
 		driver.findElement(By.xpath("//*[contains(@name, 'ResidentReligion')]/*[@id]")).click();
@@ -343,13 +277,11 @@ public class VerifyUserCreation {
 			System.out.println("values from religion drop down ===========>" + innerhtml);
 		}
 		
-
 		driver.findElement(By.xpath("//*[contains(@id, 'exampleSelect')]")).click();
 		
 		logger.log(LogStatus.PASS, "All the fields from Resident Details are provided.");
 		String image_path4 = snap_shot.takeSnapShot(driver);
 		System.out.println(image_path4);
-		// report.addScreenCaptureFromPath(image_path);
 		String img4 = logger.addScreenCapture(image_path4);
 		logger.log(LogStatus.PASS, "verified", img4);
 		
@@ -426,13 +358,10 @@ public class VerifyUserCreation {
 		System.out.println("DOB, Enquiry Date and Proposed admission date selected.");
 		logger.log(LogStatus.PASS, "Propose Admission Date have been selected.");
 		
-		
-		
 		String pensionerNumber = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "pensionerNumber").get("Value").toString();
 		driver.findElement(By.name("ResidentEnquiryPensionNumber")).sendKeys(pensionerNumber);
 		logger.log(LogStatus.PASS, "Pensioner Number provided.");		
-		
-		
+				
 
 		String anACCClass = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "anACCClass").get("Value").toString();
 		driver.findElement(By.xpath("//*[contains(@name, 'ResidentEnquiryResidentACCClass')]/*[@id]")).click();
@@ -449,7 +378,6 @@ public class VerifyUserCreation {
 		}
 		logger.log(LogStatus.PASS, "AN-ACC Class have been selected.");
 		
-
 		String residentCategory = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "residentCategory").get("Value").toString();
 		driver.findElement(By.xpath("//*[contains(@name, 'ResidentEnquiryResidentCategory')]/*[@id]")).click();
 		List<WebElement> residentCategory_menu = driver.findElements(By.xpath("//*[contains(@name, 'ResidentEnquiryResidentCategory')]/*[@id]"));
@@ -464,9 +392,7 @@ public class VerifyUserCreation {
 			System.out.println("values from resident Category drop down ===========>" + innerhtml);
 		}
 		logger.log(LogStatus.PASS, "Resident Category have been selected.");
-		
-
-		
+				
 		String aCATStatus = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "aCATStatus").get("Value").toString();
 		driver.findElement(By.xpath("//*[contains(@name, 'ResidentEnquiryACAT')]/*[@id]")).click();
 		List<WebElement> aCATStatus_menu = driver.findElements(By.xpath("//*[contains(@name, 'ResidentEnquiryACAT')]/*[@id]"));
@@ -489,37 +415,28 @@ public class VerifyUserCreation {
 		driver.findElement(By.name("ResidentEnquiryACATApprovalDate")).sendKeys(aCATApprovalDate);
 		logger.log(LogStatus.PASS, "ACAT approval date have been selected.");
 		System.out.println("ACAT approval date selected.");
-		
-		//Thread.sleep(10000);
-		
+				
 		String myAgedCareNumber = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "myAgedCareNumber").get("Value").toString();
 		driver.findElement(By.name("ResidentEnquiryAgedCareNumber")).sendKeys(myAgedCareNumber);
 		logger.log(LogStatus.PASS, "myAgedCare Number provided.");	
 		System.out.println("My aged care number is selected.");
 		
-		//Thread.sleep(10000);
 		String mediCareNumber = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "mediCareNumber").get("Value").toString();
 		driver.findElement(By.name("ResidentEnquiryMedicareNumber1")).sendKeys(mediCareNumber);
-
-
 		
 		driver.findElement(By.xpath("//*[contains(text(),'Flexible in Room Preference?')]")).click();
-		//Thread.sleep(5000);
-		
-		
+				
 		String mediCareNumber2 = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "mediCareNumber2").get("Value").toString();
 		driver.findElement(By.name("ResidentEnquiryMedicareNumber2")).sendKeys(mediCareNumber2);
 		logger.log(LogStatus.PASS, "mediCare Number provided.");	
 		System.out.println("Medicare number is selected.");
 		
-		//Thread.sleep(10000);
 		driver.findElement(By.name("ResidentEnquiryMedicareExpiry")).click();
 		String medicareCardExpiry = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "medicareCardExpiry").get("Value").toString();
 		driver.findElement(By.name("ResidentEnquiryMedicareExpiry")).sendKeys(medicareCardExpiry);
 		logger.log(LogStatus.PASS, "medicareCardExpiry date have been selected.");
 		System.out.println("medicareCardExpiry date is selected.");
 		
-		//Thread.sleep(10000);
 		String meansTestAssessment = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "meansTestAssessment").get("Value").toString();
 		driver.findElement(By.xpath("//*[contains(@name, 'ResidentEnquiryMeansAssessment')]/*[@id]")).click();
 		List<WebElement> meansTestAssessment_menu = driver.findElements(By.xpath("//*[contains(@name, 'ResidentEnquiryMeansAssessment')]/*[@id]"));
@@ -539,7 +456,6 @@ public class VerifyUserCreation {
 		
 		String image_path5 = snap_shot.takeSnapShot(driver);
 		System.out.println(image_path5);
-		// report.addScreenCaptureFromPath(image_path);
 		String img5 = logger.addScreenCapture(image_path5);
 		logger.log(LogStatus.PASS, "verified", img5);
 		
@@ -549,10 +465,7 @@ public class VerifyUserCreation {
 		element2.click();
 		
 		String FirstPref = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "FirstPref").get("Value").toString();
-			
-		//driver.findElement(By.xpath("//*[contains(@name, 'FirstFacPreference')]/*[@value]")).click();
-		//Thread.sleep(5000);
-
+		
 		List<WebElement> dd_pref_menu = driver
 				.findElements(By.xpath("//*[contains(@name, 'FirstFacPreference')]/*[@id]"));
 		for (int i = 0; i < dd_pref_menu.size(); i++) {
@@ -566,10 +479,9 @@ public class VerifyUserCreation {
 			System.out.println("values from Facility First Preference drop down ===========>" + innerhtml);
 		}
 
-		//driver.findElement(By.xpath("//*[contains(@class, 'fas fa-save mr-2')]")).click();
+		
 		String image_path3 = snap_shot.takeSnapShot(driver);
 		System.out.println(image_path3);
-		// report.addScreenCaptureFromPath(image_path);
 		String img3 = logger.addScreenCapture(image_path3);
 		logger.log(LogStatus.PASS, "verified", img3);
 		
@@ -592,8 +504,6 @@ public class VerifyUserCreation {
 		
 		
 		
-		
-		
 		String thirdPreference = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "thirdPreference").get("Value").toString();
 		driver.findElement(By.xpath("//*[contains(@name, 'ThridFacPreference')]/*[@id]")).click();
 		List<WebElement> thirdPreference_menu = driver.findElements(By.xpath("//*[contains(@name, 'ThridFacPreference')]/*[@id]"));
@@ -608,8 +518,7 @@ public class VerifyUserCreation {
 			System.out.println("values from Third Preference drop down ===========>" + innerhtml);
 		}
 		logger.log(LogStatus.PASS, "Third Preference have been selected.");
-		
-		
+			
 		
 		String extraServicePreference = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "extraServicePreference").get("Value").toString();
 		driver.findElement(By.xpath("//*[contains(@name, 'ExtraServicePreference')]/*[@id]")).click();
@@ -628,8 +537,6 @@ public class VerifyUserCreation {
 		
 		
 		
-		
-		
 		String catersToDementiaNeeds = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "catersToDementiaNeeds").get("Value").toString();
 		driver.findElement(By.xpath("//*[contains(@name, 'DimentiaSpecificPreference')]/*[@id]")).click();
 		List<WebElement> catersToDementiaNeeds_menu = driver.findElements(By.xpath("//*[contains(@name, 'DimentiaSpecificPreference')]/*[@id]"));
@@ -645,11 +552,10 @@ public class VerifyUserCreation {
 		}
 		logger.log(LogStatus.PASS, "Caters to Dementia needs have been selected.");
 		
-		
-		
+				
 		String roomPreference = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "roomPreference").get("Value").toString();
-		driver.findElement(By.xpath("//*[contains(@name, 'DimentiaSpecificPreference')]/*[@id]")).click();
-		List<WebElement> roomPreference_menu = driver.findElements(By.xpath("//*[contains(@name, 'DimentiaSpecificPreference')]/*[@id]"));
+		driver.findElement(By.xpath("//*[contains(@name, 'RoomFacPreference')]/*[@id]")).click();
+		List<WebElement> roomPreference_menu = driver.findElements(By.xpath("//*[contains(@name, 'RoomFacPreference')]/*[@id]"));
 		for (int i = 0; i < roomPreference_menu.size(); i++) {
 			WebElement element = roomPreference_menu.get(i);
 			String innerhtml = element.getAttribute("innerHTML");
@@ -661,7 +567,6 @@ public class VerifyUserCreation {
 			System.out.println("values from roomPreference drop down ===========>" + innerhtml);
 		}
 		logger.log(LogStatus.PASS, "roomPreference have been selected.");
-		
 		
 
 		String additionalServicePreference = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "additionalServicePreference").get("Value").toString();
@@ -678,39 +583,24 @@ public class VerifyUserCreation {
 			System.out.println("values from additionalServicePreference drop down ===========>" + innerhtml);
 		}
 		logger.log(LogStatus.PASS, "additionalServicePreference have been selected.");
-		
-		
-		
-		
-		
-		driver.findElement(By.xpath("//*[contains(@name, 'AdditionalServicePreference')]/*[@id]")).click();
+				
 		String image_path6 = snap_shot.takeSnapShot(driver);
 		System.out.println(image_path6);
-		// report.addScreenCaptureFromPath(image_path);
 		String img6 = logger.addScreenCapture(image_path6);
 		logger.log(LogStatus.PASS, "verified", img6);
 		
-		//Thread.sleep(10000);
-		
-		//System.out.println("here we need to start debugging the code");
 		driver.findElement(By.xpath("//*[contains(@class, 'fas fa-save mr-2')]")).click();
 		driver.switchTo().activeElement();
-		
-		
-		
+				
 		String yesconfirmbutton = driver.findElement(By.xpath("//*[contains(text(),'Yes, Confirm')]")).getText();
 		System.out.println(yesconfirmbutton);
 		driver.findElement(By.xpath("//*[contains(text(),'Yes, Confirm')]")).click();
 		logger.log(LogStatus.PASS, "Yes, Confirm is selected on popup to continue...");
 		System.out.println("Yes, Confirm is selected on popup to continue...");
-
 		
-		//WebDriverWait wait21 = new WebDriverWait(driver, Duration.ofSeconds(120));
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
 		
-		//Thread.sleep(6000);
 		driver.switchTo().activeElement();
-
 		String okbutton = driver.findElement(By.xpath("//*[contains(@class,'modal-body')]")).getText();
 		System.out.println(okbutton);
 		driver.findElement(By.xpath("//*[contains(text(),'OK')]")).click();
@@ -719,54 +609,32 @@ public class VerifyUserCreation {
 		
 		
 		//Below lines added just to confirm that element is visible.
-		//WebDriverWait wait12 = new WebDriverWait(driver, Duration.ofSeconds(120));
 		wait.until(ExpectedConditions.elementToBeClickable(By.name("checklistType")));
 		System.out.println("Screen is re-loaded successfully. So episode Id can be fetched now.");
 		
-		//WebDriverWait wait13 = new WebDriverWait(driver, Duration.ofSeconds(120));
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
 		
-		String episodeId = driver.findElement(By.xpath("//input[@name='ResidentEpisodeID']")).getAttribute("value");
-		//String episodeId = driver.findElement(By.xpath("//*[contains(@name, 'ResidentEpisodeID')]")).getText();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
+		episodeId = driver.findElement(By.xpath("//input[@name='ResidentEpisodeID']")).getAttribute("value");
 		System.out.println("Value of episode id is: " + episodeId);
 		
-		//String episodeId = driver.findElement(By.name("ResidentEpisodeID")).getAttribute("value");
-		//WebDriverWait wait5 = new WebDriverWait(driver, Duration.ofSeconds(120));
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
 		
-		
-		//Thread.sleep(6000);
-		//Start to Close the record and re-open it. 
-		//WebDriverWait wait3 = new WebDriverWait(driver, Duration.ofSeconds(120));
 		WebElement element3 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'Save & Exit')]")));
 		element3.click();
 		System.out.println("Save & Exit button is clicked.");
-		
-		
-		//driver.findElement(By.xpath("//*[contains(text(),'Save & Exit')]")).click();
+				
 		driver.switchTo().activeElement();
-		
-		
-		
-		//WebDriverWait wait4 = new WebDriverWait(driver, Duration.ofSeconds(30));
 		WebElement element4 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'OK')]")));
 		element4.click();
-		//Thread.sleep(6000);
-		//driver.findElement(By.xpath("//*[contains(text(),'OK')]")).click();
+		
 		System.out.println("Ok, Popup button is closed.");
-		
-		
-		//WebDriverWait wait7 = new WebDriverWait(driver, Duration.ofSeconds(120));
+				
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
-		
-		//Thread.sleep(6000);
-		//Enter user first name and last name with comma and space and click submit button. 
+				 
 		driver.findElement(By.name("searchValue")).sendKeys(episodeId);
 		driver.findElement(By.xpath("//*[contains(text(),'Submit')]")).click();
 		System.out.println("Searching for the created record from search filter for the episode Id: "+episodeId);
 		
-		//Thread.sleep(20000);
-		//WebDriverWait wait18 = new WebDriverWait(driver, Duration.ofSeconds(120));
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
 		
 		
@@ -775,24 +643,15 @@ public class VerifyUserCreation {
 		driver.findElement(By.xpath("//*[contains(@class, 'rt-tr-group')][1]//*[contains(@class,'rt-td')][5]//*[contains(@class,'btn-group')]//*[contains(text(),'Edit')]")).click();
 		System.out.println("Search results are displayed");
 		
-		//Thread.sleep(7000);
-		//WebDriverWait wait8 = new WebDriverWait(driver, Duration.ofSeconds(120));
+		
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
 		
-
-		//WebDriverWait wait9 = new WebDriverWait(driver, Duration.ofSeconds(120));
 		WebElement element9 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'Edit')]")));
 		element9.click();
-		//driver.findElement(By.xpath("//*[contains(text(),'Edit')]")).click();
-
-
-
 		
-		//WebDriverWait wait10 = new WebDriverWait(driver, Duration.ofSeconds(120));
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
-		
-		
-		logger = report.startTest("Verify First Name");
+				
+		logger = report.startTest("Verify First Name is correct.");
 		try {
 			// Assertion to be placed here
 			String firstName = driver.findElement(By.id("ResidentFirstName")).getAttribute("value");
@@ -805,7 +664,7 @@ public class VerifyUserCreation {
 		}
 		report.endTest(logger);
 
-		logger = report.startTest("Verify Last Name");
+		logger = report.startTest("Verify Last Name is correct.");
 		try {
 			// Assertion to be placed here
 			String lstName = driver.findElement(By.name("ResidentLastName")).getAttribute("value");
@@ -818,7 +677,7 @@ public class VerifyUserCreation {
 		}
 		report.endTest(logger);
 
-		logger = report.startTest("Verify Address Line 1");
+		logger = report.startTest("Verify Address Line 1 is correct.");
 		try {
 			// Assertion to be placed here
 			String AddressLine1 = driver.findElement(By.name("ResidentAddress1")).getAttribute("value");
@@ -831,7 +690,7 @@ public class VerifyUserCreation {
 		}
 		report.endTest(logger);
 
-		logger = report.startTest("Verify Suburb");
+		logger = report.startTest("Verify Suburb is correct.");
 		try {
 			// Assertion to be placed here
 			String Suburb = driver.findElement(By.className("css-dvua67-singleValue")).getText();
@@ -847,66 +706,461 @@ public class VerifyUserCreation {
 		
 
 		
+		logger = report.startTest("Verify Date of Birth from Resident Details is correct.");
+		try {
+			// Assertion to be placed here
+			String dateOfBirth = driver.findElement(By.name("ResidentDateofBirth")).getAttribute("value");
+			System.out.println("Date of Birth from UI is: " + dateOfBirth);
+			Assert.assertTrue(setDOB.contains(dateOfBirth), "Verify Date of Birth is failed.");
+			System.out.println("Date of Birth from data is: " + setDOB);
+			logger.log(LogStatus.PASS, "Pass - Verify Date of Birth is successful.");
+		} catch (AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail - Verify Date of Birth is failed.");
+		}
+		report.endTest(logger);
+
 		
+		
+		logger = report.startTest("Verify Proposed Admission Date from Enquiry details section is correct.");
+		try {
+			// Assertion to be placed here
+			String proposedAdmissionDate = driver.findElement(By.name("ResidentEnquiryProposeAdmissionDate")).getAttribute("value");
+			System.out.println("Proposed Admission Date from UI is: " + proposedAdmissionDate);
+			Assert.assertTrue(setPropAdmDate.contains(proposedAdmissionDate), "Proposed Admission Date Failed. ");
+			System.out.println("proposed Admission Date from data is: " + setPropAdmDate);
+			logger.log(LogStatus.PASS, "Pass - Verify Proposed Admission Date is successful.");
+		} catch (AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail - Verify Proposed Admission Date is failed.");
+		}
+		report.endTest(logger);
+		
+		
+		
+		logger = report.startTest("Verify First Preference from Preferred Facilities section is correct.");
+		try {
+			// Assertion to be placed here
+			String firstPereference = driver.findElement(By.name("FirstFacPreference")).getAttribute("value");
+			System.out.println("First Preference from UI is: " + firstPereference);
+			Assert.assertTrue(FirstPref.contains(firstPereference), "First Preference Failed. ");
+			System.out.println("First Preference from data is: " + FirstPref);
+			logger.log(LogStatus.PASS, "Pass - Verify First Preference is successful.");
+		} catch (AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail - Verify First Preference is failed.");
+		}
+		report.endTest(logger);
 		
 		//Below code is used to delete the record. 
-		
-		
-		//String episodeId = driver.findElement(By.name("ResidentEpisodeID")).getAttribute("value");
-		//WebDriverWait wait14 = new WebDriverWait(driver, Duration.ofSeconds(120));
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
-		
-		
-		//Thread.sleep(6000);
-		//Start to Close the record and re-open it. 
-		//WebDriverWait wait15 = new WebDriverWait(driver, Duration.ofSeconds(120));
+				
 		WebElement element15 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'Save & Exit')]")));
 		element15.click();
 		System.out.println("Save & Exit button is clicked.");
+			
 		
-		
-		//driver.findElement(By.xpath("//*[contains(text(),'Save & Exit')]")).click();
 		driver.switchTo().activeElement();
-		
-		
-		
-		//WebDriverWait wait16 = new WebDriverWait(driver, Duration.ofSeconds(30));
 		WebElement element16 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'OK')]")));
 		element16.click();
-		//Thread.sleep(6000);
-		//driver.findElement(By.xpath("//*[contains(text(),'OK')]")).click();
+		System.out.println("Ok, Popup button is closed.");
+			
+		
+		/*
+		 * wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className(
+		 * "loaderContainer")));
+		 * wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className(
+		 * "loaderContainer")));
+		 * 
+		 * 
+		 * driver.findElement(By.
+		 * xpath("//*[contains(@class, 'rt-tr-group')][1]//*[contains(@class,'rt-td')][5]//*[contains(@class,'btn-group')]"
+		 * )).click(); driver.findElement(By.
+		 * xpath("//*[contains(@class, 'rt-tr-group')][1]//*[contains(@class,'rt-td')][5]//*[contains(@class,'btn-group')]//*[contains(text(),'Delete')]"
+		 * )).click(); logger.log(LogStatus.PASS, "Here Delete inquiry is selected.");
+		 * System.out.println("Here Delete inquiry is selected.");
+		 * 
+		 * wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className(
+		 * "loaderContainer")));
+		 * 
+		 * driver.switchTo().activeElement();
+		 * 
+		 * String delconfirmbutton =
+		 * driver.findElement(By.xpath("//*[contains(text(),'Yes, delete')]")).getText()
+		 * ; System.out.println(delconfirmbutton);
+		 * driver.findElement(By.xpath("//*[contains(text(),'Yes, delete')]")).click();
+		 * logger.log(LogStatus.PASS,
+		 * "Yes, delete is selected on popup to continue...");
+		 * logger.log(LogStatus.PASS,
+		 * "Created inquiry have been deleted successfully..."); System.out.
+		 * println("Yes, Delete is selected on popup to delete the inquiry...");
+		 * System.out.println("Created inquiry have been deleted successfully...");
+		 */
+		
+
+		report.endTest(logger);
+		//report.flush();
+		// report.close();
+		//driver.quit();
+
+	}
+	@Test(priority=1)
+	public void TC002_VerifyAddRepresentativeIntoAlreadyCreatedInquiry() throws Exception 
+	{
+		logger = report.startTest("TC002_VerifyAddRepresentativeIntoAlreadyCreatedInquiry");
+
+		driver.findElement(By.xpath("//*[contains(text(),'Register')]")).click();
+		logger.log(LogStatus.PASS, "Register Tabe is selected");
+
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(360));
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@class, 'rt-tr-group')][1]//*[contains(@class,'rt-td')][5]//*[contains(@class,'btn-group')]")));
+		
+		
+		driver.switchTo().activeElement();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'If you have made any changes that are not saved yet, all the changes will be lost. Are you sure you want to continue?')]")));
+		String errorMessage = driver.findElement(By.xpath("//*[contains(text(),'If you have made any changes that are not saved yet, all the changes will be lost. Are you sure you want to continue?')]"))
+				.getText();
+		System.out.println(errorMessage);
+		logger.log(LogStatus.PASS, "Error message popup shown");
+		
+		String yesbutton = driver.findElement(By.xpath("//*[contains(text(),'Yes')]")).getText();
+		System.out.println(yesbutton + ": This text from Yes button is fetched...");
+
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
+		
+		WebElement element1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'Yes')]")));
+		element1.click();
+		
+		driver.findElement(By.name("searchValue")).sendKeys(episodeId);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@class, 'rt-tr-group')][1]//*[contains(@class,'rt-td')][5]//*[contains(@class,'btn-group')]")));
+
+		driver.findElement(By.xpath("//*[contains(text(),'Submit')]")).click();
+		System.out.println("Searching for the created record from search filter for the episode Id: "+episodeId);
+		
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@class, 'rt-tr-group')][1]//*[contains(@class,'rt-td')][5]//*[contains(@class,'btn-group')]")));
+		
+
+		//Click on Edit button to open the same record again in edit mode. 
+		driver.findElement(By.xpath("//*[contains(@class, 'rt-tr-group')][1]//*[contains(@class,'rt-td')][5]//*[contains(@class,'btn-group')]")).click();
+		driver.findElement(By.xpath("//*[contains(@class, 'rt-tr-group')][1]//*[contains(@class,'rt-td')][5]//*[contains(@class,'btn-group')]//*[contains(text(),'Edit')]")).click();
+		logger.log(LogStatus.PASS, "Here edit inquiry is selected.");
+		System.out.println("Here edit inquiry is selected.");
+				
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
+		
+		driver.findElement(By.xpath("//*[contains(text(),'Add Representative')]")).click();
+		driver.switchTo().activeElement();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@name, 'rep_title_type_id')]")));
+		
+		
+		String representativeTitle = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "representativeTitle").get("Value").toString();
+		List<WebElement> representativeTitle_menu = driver.findElements(By.xpath("//*[contains(@name, 'rep_title_type_id')]/*[@value]"));
+		for (int i = 0; i < representativeTitle_menu.size(); i++) {
+			WebElement element = representativeTitle_menu.get(i);
+			String innerhtml = element.getAttribute("innerHTML");
+
+			if (innerhtml.contains(representativeTitle)) {
+				element.click();
+				break;
+			}
+			System.out.println("values from representativeTitle drop down ===========>" + innerhtml);
+		}
+		logger.log(LogStatus.PASS, "representativeTitle selected.");
+		
+
+		String representativeFirstNam = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "representativeFirstNam").get("Value")
+				.toString();
+		driver.findElement(By.name("rep_first_name")).sendKeys(representativeFirstNam);
+		logger.log(LogStatus.PASS, "representative First Name provided.");
+		
+		
+		// Fill middle name
+		String representativeMiddleName = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "representativeMiddleName").get("Value").toString();
+		driver.findElement(By.name("rep_middle_name")).sendKeys(representativeMiddleName);
+		logger.log(LogStatus.PASS, "representativeMiddleName provided.");
+
+		String representativeLastName = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "representativeLastName").get("Value").toString();
+		driver.findElement(By.name("rep_last_name")).sendKeys(representativeLastName);
+		logger.log(LogStatus.PASS, "representative Last Name provided.");
+		
+		//Here we need to provide relationship. 
+		String relationship = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "relationship").get("Value").toString();
+		driver.findElement(By.xpath("//*[contains(@name, 'relationship_type_id')]/*[@value]")).click();
+		List<WebElement> relationship_menu = driver.findElements(By.xpath("//*[contains(@name, 'relationship_type_id')]/*[@value]"));
+		for (int i = 0; i < relationship_menu.size(); i++) {
+			WebElement element = relationship_menu.get(i);
+			String innerhtml = element.getAttribute("innerHTML");
+
+			if (innerhtml.contains(relationship)) {
+				element.click();
+				break;
+			}
+			System.out.println("values from relationshipdrop down ===========>" + innerhtml);
+		}
+		logger.log(LogStatus.PASS, "relationship have been selected.");
+		
+		
+		
+		String representativeAddLine1 = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "representativeAddLine1").get("Value").toString();
+		driver.findElement(By.name("rep_address1")).sendKeys(representativeAddLine1);
+		logger.log(LogStatus.PASS, "representative Address line 1 provided.");
+		
+		String representativeAddLine2 = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "representativeAddLine2").get("Value").toString();
+		driver.findElement(By.name("rep_address2")).sendKeys(representativeAddLine2);
+		logger.log(LogStatus.PASS, "representative Address line 2 provided.");
+
+		
+		System.out.println("Title, First name, Middle Name, Last name and addresses have been entered.");
+
+		String representativeSetSuburb = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "representativeSetSuburb").get("Value").toString();
+		WebElement wb = driver.findElement(By.id("rep_suburb"));
+		
+		
+		
+		Actions action = new Actions(driver);
+		action.moveToElement(wb).click().moveToElement(wb, 200, 0).sendKeys(representativeSetSuburb).build().perform(); //
+		 
+		//wb.click(); 
+		Thread.sleep(5000);
+		//vTypeInField(wb, representativeSetSuburb);
+		//wb.sendKeys(representativeSetSuburb);
+		//Thread.sleep(5000);
+		//driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
+		List<WebElement> we=  (ArrayList<WebElement>) driver.findElements(By.className("css-kj6f9i-menu"));
+		System.out.println(we.get(0).getText());	
+		we.get(0).click();
+		
+		
+		
+		  
+	
+		
+		
+		logger.log(LogStatus.PASS, "Suburb Selected.");
+
+		String image_path = snap_shot.takeSnapShot(driver);
+		System.out.println(image_path);
+		String img = logger.addScreenCapture(image_path);
+		logger.log(LogStatus.PASS, "verified", img);
+		
+		System.out.println("Suburb selected.");
+				
+		String representativePhone = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "representativePhone").get("Value").toString();
+		driver.findElement(By.id("rep_phone")).sendKeys(representativePhone);
+		logger.log(LogStatus.PASS, "representative Phone number provided.");
+		
+		String representativeMobile = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "representativeMobile").get("Value").toString();
+		driver.findElement(By.name("rep_mobile")).sendKeys(representativeMobile);
+		logger.log(LogStatus.PASS, "representative Mobile number provided.");
+
+		String representativeEmail = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "representativeEmail").get("Value").toString();
+		driver.findElement(By.name("rep_email")).sendKeys(representativeEmail);
+		logger.log(LogStatus.PASS, "representative Email number provided.");
+		
+		
+		  String representativeDrivingLicenseNo =ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "representativeDrivingLicenseNo").get("Value").toString();
+		  driver.findElement(By.name("rep_license")).sendKeys(
+		  representativeDrivingLicenseNo); logger.log(LogStatus.PASS,
+		  "representativeDrivingLicenseNo provided.");
+		 
+		
+		WebElement element =driver.findElement(By.className("form-check"));
+		element.click();
+		  // Check whether the Check box is toggled on 		
+        if (element.isSelected()) {					
+            System.out.println("Representative Category radio is Toggled On");					
+
+        } else {			
+            System.out.println("Representative Category radio is Toggled Off");					
+        }
+		
+        WebElement element2 =driver.findElement(By.xpath("//*[contains(text(),'Billing Contact')]"));
+        element2.click();
+		   		
+        if (element2.isSelected()) {					
+            System.out.println("Other Contact Category Checkbox is Toggled On");					
+
+        } else {			
+            System.out.println("Other Contact Category Checkbox is Toggled Off");					
+        }
+		
+        WebElement element3 =driver.findElement(By.id("is_primarycontact"));
+        element3.click();
+		  // Check whether the Check box is toggled on 		
+        if (element3.isSelected()) {					
+            System.out.println("Primary Contact Checkbox is Toggled On");					
+
+        } else {			
+            System.out.println("Primary Contact Checkbox is Toggled Off");					
+        }
+		
+        
+ 
+        //Click on Save button to close the add representative dialog. 
+        driver.findElement(By.xpath("//*[contains(@class,'btn btn-primary')]")).click();
+        //Click on Yes button shown on top of add representative dialog as popup. 
+        driver.switchTo().activeElement();
+        driver.findElement(By.xpath("//*[contains(@class, 'unsavedChangesModal modal-footer')]//*[contains(text(),'Yes')]")).click();
+
+        
+        String image_path3 =snap_shot.takeSnapShot(driver); 
+		   String img3 = logger.addScreenCapture(image_path3);
+			logger.log(LogStatus.PASS, "verified", img3);
+			
+			
+        //Click on Cancel button to close the add representative dialog. 
+        driver.findElement(By.xpath("//*[contains(@class,'btn btn-secondary') and contains(text(),'Cancel')]")).click();
+        
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'Save & Exit')]")));
+        
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		driver.findElement(By.xpath("//*[contains(@class, 'fas fa-save mr-2')]")).click();
+		
+		driver.switchTo().activeElement();
+		WebElement element16 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'OK')]")));
+		element16.click();
+		System.out.println("Ok, Popup button is closed.");
+		
+		//String yesconfirmbutton = driver.findElement(By.xpath("//*[contains(text(),'Yes, Confirm')]")).getText();
+		//System.out.println(yesconfirmbutton);
+		//driver.findElement(By.xpath("//*[contains(text(),'Yes, Confirm')]")).click();
+		logger.log(LogStatus.PASS, "Ok, Popup button is closed.");
+		//System.out.println("Yes, Confirm is selected on popup to continue...");
+
+		
+		
+		//Click Step 1 tab and wait till element. 
+        driver.findElement(By.id("step_1")).click();
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'Save & Exit')]")));
+		logger.log(LogStatus.PASS, "Step 1 tab selected.");
+		System.out.println("Step 1 tab selected.");
+		
+		
+		
+		//Click on edit button from grid
+		driver.findElement(By.xpath("//*[contains(@class, 'd-block w-100 text-center')]")).click();
+		System.out.println("three lines edit button is clicked..");
+		//Select edit button from edit drop down. 
+		driver.findElement(By.xpath("//*[contains(text(),'View')]")).click();
+		System.out.println("View button selected.");
+		
+		
+		driver.switchTo().activeElement();
+		
+		//rep_first_name
+		logger = report.startTest("Verify Add representative First name is correct.");
+		try {
+			// Assertion to be placed here
+			String representativeFirstNm = driver.findElement(By.id("rep_first_name")).getAttribute("value");
+			System.out.println("representativeFirstNam from UI is: " + representativeFirstNm);
+			Assert.assertTrue(representativeFirstNam.contains(representativeFirstNm), "Proposed Admission Date Failed. ");
+			System.out.println("representativeFirstNam from data is: " + representativeFirstNam);
+			logger.log(LogStatus.PASS, "Pass - Verify representativeFirstNam is successful.");
+		} catch (AssertionError e) {
+			logger.log(LogStatus.FAIL, "Fail - Verify representativeFirstNam is failed.");
+		}
+		report.endTest(logger);
+		
+		
+		
+		
+		
+        //Click on Cancel button to close the add representative dialog. 
+       // driver.findElement(By.xpath("//*[contains(@class,'btn btn-secondary') and contains(text(),'Cancel')]")).click();
+        
+		
+		WebElement okButtonToClosePopup = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'OK')]")));
+		okButtonToClosePopup.click();
+		System.out.println("Ok, Popup button is closed.");
+        
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
+		
+		WebElement element15 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'Save & Exit')]")));
+		element15.click();
+		System.out.println("Save & Exit button is clicked.");
+			
+		
+		driver.switchTo().activeElement();
+		WebElement element17 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'OK')]")));
+		element17.click();
 		System.out.println("Ok, Popup button is closed.");
 		
 		
-		//WebDriverWait wait17 = new WebDriverWait(driver, Duration.ofSeconds(120));
+		String image_path2 =snap_shot.takeSnapShot(driver); 
+		   String img2 = logger.addScreenCapture(image_path2);
+			logger.log(LogStatus.PASS, "verified", img2);
+			
+			
+		report.endTest(logger);
+	}
+
+	
+
+	@Test(priority=2)
+	public void TC003_VerifyDeleteInquiryAfterCreation() throws Exception 
+	{
+		logger = report.startTest("TC003_VerifyDeleteInquiryAfterCreation");
+
+		driver.findElement(By.xpath("//*[contains(text(),'Register')]")).click();
+		logger.log(LogStatus.PASS, "Register Tabe is selected");
+
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(360));
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@class, 'rt-tr-group')][1]//*[contains(@class,'rt-td')][5]//*[contains(@class,'btn-group')]")));
+		
+		
+		driver.switchTo().activeElement();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'If you have made any changes that are not saved yet, all the changes will be lost. Are you sure you want to continue?')]")));
+		String errorMessage = driver.findElement(By.xpath("//*[contains(text(),'If you have made any changes that are not saved yet, all the changes will be lost. Are you sure you want to continue?')]"))
+				.getText();
+		System.out.println(errorMessage);
+		logger.log(LogStatus.PASS, "Error message popup shown");
+		
+		String yesbutton = driver.findElement(By.xpath("//*[contains(text(),'Yes')]")).getText();
+		System.out.println(yesbutton + ": This text from Yes button is fetched...");
+
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
 		
-		//Thread.sleep(6000);
-		//Enter user first name and last name with comma and space and click submit button. 
-		//driver.findElement(By.name("searchValue")).sendKeys(episodeId);
-		//driver.findElement(By.xpath("//*[contains(text(),'Submit')]")).click();
-		//System.out.println("Searching for the created record from search filter for the episode Id: "+episodeId);
+		WebElement element1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'Yes')]")));
+		element1.click();
 		
-		
-		
-		
-		//WebDriverWait wait19 = new WebDriverWait(driver, Duration.ofSeconds(120));
+		driver.findElement(By.name("searchValue")).sendKeys(episodeId);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@class, 'rt-tr-group')][1]//*[contains(@class,'rt-td')][5]//*[contains(@class,'btn-group')]")));
+
+		driver.findElement(By.xpath("//*[contains(text(),'Submit')]")).click();
+		System.out.println("Searching for the created record from search filter for the episode Id: "+episodeId);
 		
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@class, 'rt-tr-group')][1]//*[contains(@class,'rt-td')][5]//*[contains(@class,'btn-group')]")));
 		
+
 		//Click on Edit button to open the same record again in edit mode. 
 		driver.findElement(By.xpath("//*[contains(@class, 'rt-tr-group')][1]//*[contains(@class,'rt-td')][5]//*[contains(@class,'btn-group')]")).click();
 		driver.findElement(By.xpath("//*[contains(@class, 'rt-tr-group')][1]//*[contains(@class,'rt-td')][5]//*[contains(@class,'btn-group')]//*[contains(text(),'Delete')]")).click();
 		logger.log(LogStatus.PASS, "Here Delete inquiry is selected.");
 		System.out.println("Here Delete inquiry is selected.");
-		
-		
-		//Thread.sleep(7000);
-		//WebDriverWait wait20 = new WebDriverWait(driver, Duration.ofSeconds(120));
+				
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
-		
-
-		
+				
 		driver.switchTo().activeElement();
 
 		String delconfirmbutton = driver.findElement(By.xpath("//*[contains(text(),'Yes, delete')]")).getText();
@@ -916,23 +1170,14 @@ public class VerifyUserCreation {
 		logger.log(LogStatus.PASS, "Created inquiry have been deleted successfully...");
 		System.out.println("Yes, Delete is selected on popup to delete the inquiry...");
 		System.out.println("Created inquiry have been deleted successfully...");
-		//WebDriverWait wait21 = new WebDriverWait(driver, Duration.ofSeconds(120));
-		//WebElement element21 = wait21.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'Edit')]")));
-		//element21.click();
-		
-		
-		
-		
-		
-		
+		 
+		String image_path =snap_shot.takeSnapShot(driver); 
+		   String img = logger.addScreenCapture(image_path);
+			logger.log(LogStatus.PASS, "verified", img);
+			
+			
 		report.endTest(logger);
-		//report.flush();
-		// report.close();
-		//driver.quit();
-
 	}
-	
-	
 	
 	
 	

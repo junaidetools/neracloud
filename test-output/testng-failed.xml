@@ -6,8 +6,8 @@
       <class name="com.neracloud.testcases.VerifyUserCreation">
         <methods>
           <include name="tearDown"/>
-          <include name="TC001_VerifyInquiryCreationOfTypePermanent"/>
           <include name="setup"/>
+          <include name="TC002_VerifyAddRepresentativeIntoAlreadyCreatedInquiry"/>
           <include name="endOfSuite"/>
         </methods>
       </class> <!-- com.neracloud.testcases.VerifyUserCreation -->
