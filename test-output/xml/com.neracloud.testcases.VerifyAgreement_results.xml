@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Default test"
-           tests="1"
+<testsuite name="NeRa Agreement"
+           tests="4"
            failures="0"
            errors="0"
            skipped="0"
-           time="96.732">
+           time="404.479">
     <properties></properties>
 
 
 
             <testcase
+                name="TC002_VerifyPermanentExtraAgreementSections"
+                time="100.000"
+                classname="com.neracloud.testcases.VerifyAgreement">
+            </testcase>
+            <testcase
                 name="TC001_VerifyPermanentAgreementSections"
-                time="96.732"
+                time="106.279"
+                classname="com.neracloud.testcases.VerifyAgreement">
+            </testcase>
+            <testcase
+                name="TC003_VerifyRespiteAgreementSections"
+                time="99.133"
+                classname="com.neracloud.testcases.VerifyAgreement">
+            </testcase>
+            <testcase
+                name="TC004_VerifyRespiteExtraAgreementSections"
+                time="99.067"
                 classname="com.neracloud.testcases.VerifyAgreement">
             </testcase>
 </testsuite>

@@ -1,6 +1,8 @@
 package com.neracloud.testcases;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -32,9 +34,25 @@ public class VerifyAgreement {
 	@Test
 	public void TC001_VerifyPermanentAgreementSections() throws Exception {
 
+		/*
+		 * File currentDir = new File ("."); String basePath =
+		 * currentDir.getCanonicalPath(); report = new
+		 * ExtentReports(basePath+"\\NeRA_Cloud_Report.html");
+		 */
+		
 		File currentDir = new File (".");
 		String basePath = currentDir.getCanonicalPath();
-		report = new ExtentReports(basePath+"\\NeRA_Cloud_Report.html");
+
+		LocalDate myObj = LocalDate.now(); // Create a date object
+		System.out.println(myObj); // Display the current date
+		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("ddMMyyyy");
+
+		String formattedDate = myObj.format(myFormatObj);
+		System.out.println("After formatting: " + formattedDate);
+		report = new ExtentReports(basePath+"\\NeRa_Cloud"+formattedDate+".html");
+		
+		
+		
 		logger = report.startTest("TC001_VerifyPermanentAgreementSections");
 
 		String WebUrl = ExcelDriven_XLSX.readExcelData("Testdata", "Config", "URL").get("Value").toString();

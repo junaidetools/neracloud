@@ -1,0 +1,48 @@
+<!--<?xml version="1.0" encoding="UTF-8" standalone="no"?>-->
+<!--<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">-->
+<!--<properties/>-->
+
+<suite name="NeRaCloud_Automation" parallel="tests" thread-count="1">
+<!--        <listeners>-->
+<!--            <listener class-name="Listeners.SuiteListener"/>-->
+<!--            <listener class-name="Listeners.MethodListener"/>-->
+<!--            <listener class-name="Listeners.TestListener"/>-->
+<!--            <listener class-name="Listeners.AnnotationTransformer"/>-->
+<!--        </listeners>-->
+
+    <test name="NeRa Agreement">
+<!--        <parameter name="SignIn" value="True"/>-->
+        <parameter name="TestType" value="Browser"/>
+        <parameter name="ProjectType" value="PDF"/>
+        <classes>
+             <class name="com.neracloud.testcases.VerifyAgreement">
+                <methods>
+                    <include name="TC001_VerifyPermanentAgreementSections"/>
+                    <include name="TC002_VerifyPermanentExtraAgreementSections"/>
+                    <include name="TC003_VerifyRespiteAgreementSections"/>
+                    <include name="TC004_VerifyRespiteExtraAgreementSections"/>
+
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="User Creation">
+<!--        <parameter name="SignIn" value="True"/>-->
+        <parameter name="TestType" value="Browser"/>
+        <parameter name="ProjectType" value="UI"/>
+        <classes>
+            <class name="com.neracloud.testcases.VerifyUserCreation">
+                <methods>
+                    <include name="TC001_VerifyInquiryCreationOfTypePermanent"/>
+                    <include name="TC002_VerifyAddRepresentativeIntoAlreadyCreatedInquiry"/>
+                    <include name="TC003_VerifyResidentialDetailsFirstNameMiddleNameAndLastNameFromStep1"/>
+                    <include name="TC004_VerifyResidentialDetailsMaritalStatusPrefLanguageAndReligionFromStep1"/>
+
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+
+
+</suite>

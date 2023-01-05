@@ -1,27 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuite name="Default test"
-           tests="3"
+           tests="5"
            failures="0"
            errors="0"
            skipped="0"
-           time="148.290">
+           time="138.629">
     <properties></properties>
 
 
 
             <testcase
+                name="TC005_VerifyDeleteInquiryAfterCreation"
+                time="8.733"
+                classname="com.neracloud.testcases.VerifyUserCreation">
+            </testcase>
+            <testcase
                 name="TC001_VerifyInquiryCreationOfTypePermanent"
-                time="76.141"
+                time="49.869"
                 classname="com.neracloud.testcases.VerifyUserCreation">
             </testcase>
             <testcase
                 name="TC002_VerifyAddRepresentativeIntoAlreadyCreatedInquiry"
-                time="56.430"
+                time="37.003"
                 classname="com.neracloud.testcases.VerifyUserCreation">
             </testcase>
             <testcase
-                name="TC003_VerifyDeleteInquiryAfterCreation"
-                time="15.719"
+                name="TC004_VerifyResidentialDetailsMaritalStatusPrefLanguageAndReligionFromStep1"
+                time="20.099"
+                classname="com.neracloud.testcases.VerifyUserCreation">
+            </testcase>
+            <testcase
+                name="TC003_VerifyResidentialDetailsFirstNameMiddleNameAndLastNameFromStep1"
+                time="22.925"
                 classname="com.neracloud.testcases.VerifyUserCreation">
             </testcase>
 </testsuite>

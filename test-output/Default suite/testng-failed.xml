@@ -7,8 +7,8 @@
         <methods>
           <include name="tearDown"/>
           <include name="setup"/>
-          <include name="TC002_VerifyAddRepresentativeIntoAlreadyCreatedInquiry"/>
           <include name="endOfSuite"/>
+          <include name="TC003_VerifyResidentialDetailsFirstNameMiddleNameAndLastNameFromStep1"/>
         </methods>
       </class> <!-- com.neracloud.testcases.VerifyUserCreation -->
     </classes>

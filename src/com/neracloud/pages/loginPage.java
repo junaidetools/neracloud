@@ -2,6 +2,7 @@ package com.neracloud.pages;
 
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
@@ -41,6 +42,14 @@ public class loginPage {
 	@FindBy(how=How.ID, using="NeRAAppLogo") 
 	@CacheLookup
 	WebElement selectNera;
+	
+	@FindBy(how=How.XPATH, using="//*[contains(text(),'Yes')]")
+	@CacheLookup
+	WebElement yesBtn;
+	
+	public String getYesBtnText() {
+		return yesBtn.getText();
+	}
 	
 	@SuppressWarnings("deprecation")
 	public void login_nera(String uid, String pass) throws InterruptedException 
