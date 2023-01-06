@@ -4,34 +4,34 @@
            failures="0"
            errors="0"
            skipped="0"
-           time="138.629">
+           time="142.289">
     <properties></properties>
 
 
 
             <testcase
+                name="TC002_VerifyAddRepresentativeIntoAlreadyCreatedInquiry"
+                time="39.184"
+                classname="com.neracloud.testcases.VerifyUserCreation">
+            </testcase>
+            <testcase
                 name="TC005_VerifyDeleteInquiryAfterCreation"
-                time="8.733"
+                time="8.397"
                 classname="com.neracloud.testcases.VerifyUserCreation">
             </testcase>
             <testcase
                 name="TC001_VerifyInquiryCreationOfTypePermanent"
-                time="49.869"
-                classname="com.neracloud.testcases.VerifyUserCreation">
-            </testcase>
-            <testcase
-                name="TC002_VerifyAddRepresentativeIntoAlreadyCreatedInquiry"
-                time="37.003"
-                classname="com.neracloud.testcases.VerifyUserCreation">
-            </testcase>
-            <testcase
-                name="TC004_VerifyResidentialDetailsMaritalStatusPrefLanguageAndReligionFromStep1"
-                time="20.099"
+                time="53.552"
                 classname="com.neracloud.testcases.VerifyUserCreation">
             </testcase>
             <testcase
                 name="TC003_VerifyResidentialDetailsFirstNameMiddleNameAndLastNameFromStep1"
-                time="22.925"
+                time="20.691"
+                classname="com.neracloud.testcases.VerifyUserCreation">
+            </testcase>
+            <testcase
+                name="TC004_VerifyResidentialDetailsMaritalStatusPrefLanguageAndReligionFromStep1"
+                time="20.465"
                 classname="com.neracloud.testcases.VerifyUserCreation">
             </testcase>
 </testsuite>

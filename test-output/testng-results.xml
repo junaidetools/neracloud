@@ -2,107 +2,107 @@
 <testng-results ignored="0" total="5" passed="5" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2023-01-05T13:56:51 PKT" name="Default suite" finished-at="2023-01-05T14:00:45 PKT" duration-ms="234242">
+  <suite started-at="2023-01-06T11:13:16 PKT" name="Default suite" finished-at="2023-01-06T11:17:09 PKT" duration-ms="232576">
     <groups>
     </groups>
-    <test started-at="2023-01-05T13:56:51 PKT" name="Default test" finished-at="2023-01-05T14:00:45 PKT" duration-ms="234242">
+    <test started-at="2023-01-06T11:13:16 PKT" name="Default test" finished-at="2023-01-06T11:17:09 PKT" duration-ms="232576">
       <class name="com.neracloud.testcases.VerifyUserCreation">
-        <test-method is-config="true" signature="setup()[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@3972a855]" started-at="2023-01-05T13:56:51 PKT" name="setup" finished-at="2023-01-05T13:57:09 PKT" duration-ms="17556" status="PASS">
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@503d687a]" started-at="2023-01-06T11:13:16 PKT" name="setup" finished-at="2023-01-06T11:13:34 PKT" duration-ms="17787" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="TC001_VerifyInquiryCreationOfTypePermanent()[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@3972a855]" started-at="2023-01-05T13:57:09 PKT" name="TC001_VerifyInquiryCreationOfTypePermanent" finished-at="2023-01-05T13:57:59 PKT" duration-ms="49869" status="PASS">
+        <test-method signature="TC001_VerifyInquiryCreationOfTypePermanent()[pri:1, instance:com.neracloud.testcases.VerifyUserCreation@503d687a]" started-at="2023-01-06T11:13:34 PKT" name="TC001_VerifyInquiryCreationOfTypePermanent" finished-at="2023-01-06T11:14:28 PKT" duration-ms="53552" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TC001_VerifyInquiryCreationOfTypePermanent -->
-        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@3972a855]" started-at="2023-01-05T13:57:59 PKT" name="tearDown" finished-at="2023-01-05T13:57:59 PKT" duration-ms="205" status="PASS">
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@503d687a]" started-at="2023-01-06T11:14:28 PKT" name="tearDown" finished-at="2023-01-06T11:14:28 PKT" duration-ms="78" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=TC001_VerifyInquiryCreationOfTypePermanent status=SUCCESS method=VerifyUserCreation.TC001_VerifyInquiryCreationOfTypePermanent()[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@3972a855] output={null}]]]>
+                <![CDATA[[TestResult name=TC001_VerifyInquiryCreationOfTypePermanent status=SUCCESS method=VerifyUserCreation.TC001_VerifyInquiryCreationOfTypePermanent()[pri:1, instance:com.neracloud.testcases.VerifyUserCreation@503d687a] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setup()[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@3972a855]" started-at="2023-01-05T13:57:59 PKT" name="setup" finished-at="2023-01-05T13:58:14 PKT" duration-ms="15589" status="PASS">
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@503d687a]" started-at="2023-01-06T11:14:28 PKT" name="setup" finished-at="2023-01-06T11:14:44 PKT" duration-ms="15957" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="TC002_VerifyAddRepresentativeIntoAlreadyCreatedInquiry()[pri:1, instance:com.neracloud.testcases.VerifyUserCreation@3972a855]" started-at="2023-01-05T13:58:14 PKT" name="TC002_VerifyAddRepresentativeIntoAlreadyCreatedInquiry" finished-at="2023-01-05T13:58:51 PKT" duration-ms="37003" status="PASS">
+        <test-method signature="TC002_VerifyAddRepresentativeIntoAlreadyCreatedInquiry()[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@503d687a]" started-at="2023-01-06T11:14:44 PKT" name="TC002_VerifyAddRepresentativeIntoAlreadyCreatedInquiry" finished-at="2023-01-06T11:15:23 PKT" depends-on-methods="com.neracloud.testcases.VerifyUserCreation.TC001_VerifyInquiryCreationOfTypePermanent" duration-ms="39184" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TC002_VerifyAddRepresentativeIntoAlreadyCreatedInquiry -->
-        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@3972a855]" started-at="2023-01-05T13:58:51 PKT" name="tearDown" finished-at="2023-01-05T13:58:51 PKT" duration-ms="54" status="PASS">
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@503d687a]" started-at="2023-01-06T11:15:23 PKT" name="tearDown" finished-at="2023-01-06T11:15:23 PKT" duration-ms="70" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=TC002_VerifyAddRepresentativeIntoAlreadyCreatedInquiry status=SUCCESS method=VerifyUserCreation.TC002_VerifyAddRepresentativeIntoAlreadyCreatedInquiry()[pri:1, instance:com.neracloud.testcases.VerifyUserCreation@3972a855] output={null}]]]>
+                <![CDATA[[TestResult name=TC002_VerifyAddRepresentativeIntoAlreadyCreatedInquiry status=SUCCESS method=VerifyUserCreation.TC002_VerifyAddRepresentativeIntoAlreadyCreatedInquiry()[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@503d687a] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setup()[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@3972a855]" started-at="2023-01-05T13:58:51 PKT" name="setup" finished-at="2023-01-05T13:59:07 PKT" duration-ms="15225" status="PASS">
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@503d687a]" started-at="2023-01-06T11:15:23 PKT" name="setup" finished-at="2023-01-06T11:15:47 PKT" duration-ms="24302" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="TC003_VerifyResidentialDetailsFirstNameMiddleNameAndLastNameFromStep1()[pri:2, instance:com.neracloud.testcases.VerifyUserCreation@3972a855]" started-at="2023-01-05T13:59:07 PKT" name="TC003_VerifyResidentialDetailsFirstNameMiddleNameAndLastNameFromStep1" finished-at="2023-01-05T13:59:30 PKT" duration-ms="22925" status="PASS">
+        <test-method signature="TC003_VerifyResidentialDetailsFirstNameMiddleNameAndLastNameFromStep1()[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@503d687a]" started-at="2023-01-06T11:15:47 PKT" name="TC003_VerifyResidentialDetailsFirstNameMiddleNameAndLastNameFromStep1" finished-at="2023-01-06T11:16:08 PKT" depends-on-methods="com.neracloud.testcases.VerifyUserCreation.TC002_VerifyAddRepresentativeIntoAlreadyCreatedInquiry" duration-ms="20691" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TC003_VerifyResidentialDetailsFirstNameMiddleNameAndLastNameFromStep1 -->
-        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@3972a855]" started-at="2023-01-05T13:59:30 PKT" name="tearDown" finished-at="2023-01-05T13:59:46 PKT" duration-ms="16151" status="PASS">
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@503d687a]" started-at="2023-01-06T11:16:08 PKT" name="tearDown" finished-at="2023-01-06T11:16:08 PKT" duration-ms="64" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=TC003_VerifyResidentialDetailsFirstNameMiddleNameAndLastNameFromStep1 status=SUCCESS method=VerifyUserCreation.TC003_VerifyResidentialDetailsFirstNameMiddleNameAndLastNameFromStep1()[pri:2, instance:com.neracloud.testcases.VerifyUserCreation@3972a855] output={null}]]]>
+                <![CDATA[[TestResult name=TC003_VerifyResidentialDetailsFirstNameMiddleNameAndLastNameFromStep1 status=SUCCESS method=VerifyUserCreation.TC003_VerifyResidentialDetailsFirstNameMiddleNameAndLastNameFromStep1()[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@503d687a] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setup()[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@3972a855]" started-at="2023-01-05T13:59:46 PKT" name="setup" finished-at="2023-01-05T14:00:01 PKT" duration-ms="15409" status="PASS">
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@503d687a]" started-at="2023-01-06T11:16:08 PKT" name="setup" finished-at="2023-01-06T11:16:24 PKT" duration-ms="16040" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="TC004_VerifyResidentialDetailsMaritalStatusPrefLanguageAndReligionFromStep1()[pri:3, instance:com.neracloud.testcases.VerifyUserCreation@3972a855]" started-at="2023-01-05T14:00:01 PKT" name="TC004_VerifyResidentialDetailsMaritalStatusPrefLanguageAndReligionFromStep1" finished-at="2023-01-05T14:00:21 PKT" duration-ms="20099" status="PASS">
+        <test-method signature="TC004_VerifyResidentialDetailsMaritalStatusPrefLanguageAndReligionFromStep1()[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@503d687a]" started-at="2023-01-06T11:16:24 PKT" name="TC004_VerifyResidentialDetailsMaritalStatusPrefLanguageAndReligionFromStep1" finished-at="2023-01-06T11:16:44 PKT" depends-on-methods="com.neracloud.testcases.VerifyUserCreation.TC003_VerifyResidentialDetailsFirstNameMiddleNameAndLastNameFromStep1" duration-ms="20465" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TC004_VerifyResidentialDetailsMaritalStatusPrefLanguageAndReligionFromStep1 -->
-        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@3972a855]" started-at="2023-01-05T14:00:21 PKT" name="tearDown" finished-at="2023-01-05T14:00:21 PKT" duration-ms="53" status="PASS">
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@503d687a]" started-at="2023-01-06T11:16:44 PKT" name="tearDown" finished-at="2023-01-06T11:16:45 PKT" duration-ms="101" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=TC004_VerifyResidentialDetailsMaritalStatusPrefLanguageAndReligionFromStep1 status=SUCCESS method=VerifyUserCreation.TC004_VerifyResidentialDetailsMaritalStatusPrefLanguageAndReligionFromStep1()[pri:3, instance:com.neracloud.testcases.VerifyUserCreation@3972a855] output={null}]]]>
+                <![CDATA[[TestResult name=TC004_VerifyResidentialDetailsMaritalStatusPrefLanguageAndReligionFromStep1 status=SUCCESS method=VerifyUserCreation.TC004_VerifyResidentialDetailsMaritalStatusPrefLanguageAndReligionFromStep1()[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@503d687a] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setup()[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@3972a855]" started-at="2023-01-05T14:00:21 PKT" name="setup" finished-at="2023-01-05T14:00:36 PKT" duration-ms="15222" status="PASS">
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@503d687a]" started-at="2023-01-06T11:16:45 PKT" name="setup" finished-at="2023-01-06T11:17:00 PKT" duration-ms="15694" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="TC005_VerifyDeleteInquiryAfterCreation()[pri:4, instance:com.neracloud.testcases.VerifyUserCreation@3972a855]" started-at="2023-01-05T14:00:36 PKT" name="TC005_VerifyDeleteInquiryAfterCreation" finished-at="2023-01-05T14:00:45 PKT" duration-ms="8733" status="PASS">
+        <test-method signature="TC005_VerifyDeleteInquiryAfterCreation()[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@503d687a]" started-at="2023-01-06T11:17:00 PKT" name="TC005_VerifyDeleteInquiryAfterCreation" finished-at="2023-01-06T11:17:09 PKT" depends-on-methods="com.neracloud.testcases.VerifyUserCreation.TC004_VerifyResidentialDetailsMaritalStatusPrefLanguageAndReligionFromStep1" duration-ms="8397" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TC005_VerifyDeleteInquiryAfterCreation -->
-        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@3972a855]" started-at="2023-01-05T14:00:45 PKT" name="tearDown" finished-at="2023-01-05T14:00:45 PKT" duration-ms="112" status="PASS">
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@503d687a]" started-at="2023-01-06T11:17:09 PKT" name="tearDown" finished-at="2023-01-06T11:17:09 PKT" duration-ms="144" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=TC005_VerifyDeleteInquiryAfterCreation status=SUCCESS method=VerifyUserCreation.TC005_VerifyDeleteInquiryAfterCreation()[pri:4, instance:com.neracloud.testcases.VerifyUserCreation@3972a855] output={null}]]]>
+                <![CDATA[[TestResult name=TC005_VerifyDeleteInquiryAfterCreation status=SUCCESS method=VerifyUserCreation.TC005_VerifyDeleteInquiryAfterCreation()[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@503d687a] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="endOfSuite()[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@3972a855]" started-at="2023-01-05T14:00:45 PKT" name="endOfSuite" finished-at="2023-01-05T14:00:46 PKT" duration-ms="362" status="PASS">
+        <test-method is-config="true" signature="endOfSuite()[pri:0, instance:com.neracloud.testcases.VerifyUserCreation@503d687a]" started-at="2023-01-06T11:17:09 PKT" name="endOfSuite" finished-at="2023-01-06T11:17:09 PKT" duration-ms="462" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- endOfSuite -->

@@ -13,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -163,12 +164,19 @@ public class TemporaryClass {
 			 * +titleFromUI);
 			 */
 		  Thread.sleep(5000);
-		  WebElement webElement = driver.findElement(By.name("resident_title_type_id"));
-		  String jQuerySelector = "arguments[0]";
-		  JavascriptExecutor executor = (JavascriptExecutor)driver;
-		  Object titletext =  executor.executeScript("return $(" + jQuerySelector+ ").doSomethingInJquery();", webElement);
+			/*
+			 * WebElement webElement =
+			 * driver.findElement(By.name("resident_title_type_id")); String jQuerySelector
+			 * = "arguments[0]"; JavascriptExecutor executor = (JavascriptExecutor)driver;
+			 * Object titletext = executor.executeScript("return $(" + jQuerySelector+
+			 * ").doSomethingInJquery();", webElement);
+			 */
 		  
-		  System.out.println("output from js is:"+titletext.toString() );
+		  Select objSelect = new Select(driver.findElement(By.name("resident_title_type_id")));
+		  String str = objSelect.getFirstSelectedOption().getText();
+		  System.out.println("output from js is:"+str);
+		  
+		 // System.out.println("output from js is:"+titletext.toString() );
 		  
 //		  JavascriptExecutor executor = (JavascriptExecutor)driver;
 //			 //executor.executeScript("alert('Alert');");

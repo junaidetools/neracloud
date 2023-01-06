@@ -17,6 +17,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import static io.github.seleniumquery.SeleniumQuery.$; 
 import org.testng.Assert;
@@ -73,7 +74,7 @@ public class VerifyUserCreation {
 		
 	}
 	
-	@Test(priority=0)
+	@Test(priority=1)
 	public void TC001_VerifyInquiryCreationOfTypePermanent() throws Exception {
 		
 		File currentDir = new File (".");
@@ -819,7 +820,7 @@ public class VerifyUserCreation {
 		//driver.quit();
 
 	}
-	@Test(priority=1)
+	@Test(dependsOnMethods = {"TC001_VerifyInquiryCreationOfTypePermanent"})
 	public void TC002_VerifyAddRepresentativeIntoAlreadyCreatedInquiry() throws Exception 
 	{
 		logger = report.startTest("TC002_VerifyAddRepresentativeIntoAlreadyCreatedInquiry");
@@ -1131,7 +1132,7 @@ public class VerifyUserCreation {
 	}
 
 	
-	@Test(priority=2)
+	@Test(dependsOnMethods = {"TC002_VerifyAddRepresentativeIntoAlreadyCreatedInquiry"})
 	public void TC003_VerifyResidentialDetailsFirstNameMiddleNameAndLastNameFromStep1() throws Exception 
 	{
 		logger = report.startTest("TC003_VerifyResidentialDetailsFirstNameMiddleNameAndLastNameFromStep1");
@@ -1201,87 +1202,13 @@ public class VerifyUserCreation {
 		  try 
 		  {
 			  
-		  System.out.println("before reading the value from excel");
 		  String title = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation","title").get("Value").toString(); 
-		  System.out.println("after reading the value from excel");
-		  //driver.findElement(By.name("resident_title_type_id")).getAttribute("value");
+		  Select objSelect = new Select(driver.findElement(By.name("resident_title_type_id")));
+		  String titleFromUI = objSelect.getFirstSelectedOption().getText();
+		  Assert.assertEquals(title, titleFromUI);
 		  
-
-			/*
-			 * String titleFromUI =
-			 * $("select[name=\"resident_title_type_id\"]").find(":selected").text();
-			 * System.out.println("JQuery output: +++++++++++++++++++++++++++++: "
-			 * +titleFromUI);
-			 */
-		  Thread.sleep(5000);
-			/*
-			 * WebElement webElement =
-			 * driver.findElement(By.name("resident_title_type_id")); String jQuerySelector
-			 * = "arguments[0]"; ((JavascriptExecutor) driver).executeScript("return $(" +
-			 * jQuerySelector+ ").doSomethingInJquery();", webElement);
-			 */
-		  
-		  JavascriptExecutor executor = (JavascriptExecutor)driver;
-			// executor.executeScript("alert('Alert');");
-				/*
-				 * var str1 = executor.executeScript(
-				 * "$('select[name=\"resident_title_type_id\"]').find(\":selected\").text()");
-				 * System.out.
-				 * println("js output str1 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ "
-				 * + str1);
-				 */	  
-		//  executor.executeScript("let elem = document.querySelector(\"select[name='resident_title_type_id']\")\n"
-		 // 		+ "let value = '';if(elem) {value = elem.options[elem.selectedIndex].value}");
-			//System.out.println("js output ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"+ str);
-			
-			
-		/*
-		 * executor.
-		 * executeScript("let elem = document.querySelector(\"select[name='genderTypeList']\")\n"
-		 * + "let value = '';if(elem) {value = elem.options[elem.selectedIndex].text}");
-		 */
-				//System.out.println("js output ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"+ str2);
-			
-			Object txt = executor.executeScript("return document.getElementById('resident_title_type_id').value");
-			System.out.println("select "+txt.toString());
-			
-			String jQuerySelector = "arguments[0]";
-			((JavascriptExecutor) drivewer).executeScript("return $(" + jQuerySelector+ ").doSomethingInJquery();", webElement);
-			
-			/*
-			 * WebElement elem = executor.executeScrip(document.querySelector(
-			 * "select[name='resident_title_type_id']")
-			 * 
-			 * let value = '';
-			 * 
-			 * if(elem) {
-			 * 
-			 * value = elem.options[elem.selectedIndex].text}
-			 */
-					
-					
-			
-			/*
-			 * JavascriptExecutor executor = (JavascriptExecutor)driver; var str =
-			 * executor.executeScript(
-			 * "\"select[name=\"resident_title_type_id\"]\").find(\":selected\").text()");
-			 * //var str = executor.executeScript(
-			 * "\"select[name=\"resident_title_type_id\"]\").find(\":selected\").text()");
-			 * System.out.println(str.toString());
-			 */
-		  
-		  //driver.executeScript("return jQuery()!=null");
-		  
-		  
-			/*
-			 * var titleFromUI =
-			 * $("select[name=\"resident_title_type_id\"]").find(":selected").text();
-			 * System.out.println("Title from UI in variable is: "+ titleFromUI);
-			 * System.out.println("Title from UI is: "+ titleFromUI);
-			 * Assert.assertEquals(title, titleFromUI);
-			 * System.out.println("user Title from step-1 UI is: " + titleFromUI);
-			 * System.out.println("user Title from data is: " + title);
-			 */
+		  System.out.println("Title from step-1 UI is:"+titleFromUI);
+		  System.out.println("Title from data is:"+title);
 		  
 		  logger.log(LogStatus.PASS, "Pass - Verify Title is successful."); 
 		  } 
@@ -1353,6 +1280,13 @@ public class VerifyUserCreation {
 		logger.log(LogStatus.PASS, "Verification of First Name, Middle Name and last name successful.");
 		
 		
+		
+		
+		
+		
+		
+		
+		
 		       
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'Save & Exit')]")));
@@ -1376,7 +1310,7 @@ public class VerifyUserCreation {
 		report.endTest(logger);
 	}
 	
-	@Test(priority=3)
+	@Test(dependsOnMethods = {"TC003_VerifyResidentialDetailsFirstNameMiddleNameAndLastNameFromStep1"})
 	public void TC004_VerifyResidentialDetailsMaritalStatusPrefLanguageAndReligionFromStep1() throws Exception 
 	{
 		logger = report.startTest("TC003_VerifyResidentialDetailsMaritalStatusPrefLanguageAndReligionFromStep1");
@@ -1431,6 +1365,8 @@ public class VerifyUserCreation {
 		logger.log(LogStatus.PASS, "Step 1 tab selected.");
 		System.out.println("Step 1 tab selected.");
 		
+		driver.findElement(By.xpath("//*[contains(text(),'Marital Status')]")).click();
+		driver.switchTo().activeElement();
 		
 		
 		
@@ -1441,25 +1377,118 @@ public class VerifyUserCreation {
 		
 		//Residential Details are required to be verified. 
 		
-		logger = report.startTest("Verify Date of Birth from Resident Details on step-1 is correct.");
-		try {
-			// Assertion to be placed here
-			String setDOB = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation", "setDOB").get("Value").toString();
-			String dateOfBirthFromUI = driver.findElement(By.name("date_of_birth")).getAttribute("value");
-			Assert.assertEquals(setDOB, dateOfBirthFromUI);
-			System.out.println("Date of Birth from UI is: " + dateOfBirthFromUI);
-			System.out.println("Date of Birth from data is: " + setDOB);
-			logger.log(LogStatus.PASS, "Pass - Verify Date of Birth is successful.");
-		} catch (AssertionError e) {
-			logger.log(LogStatus.FAIL, "Fail - Verify Date of Birth is failed.");
-		}
-		report.endTest(logger);
 		
-		logger.log(LogStatus.PASS, "Verification of First Name, Middle Name and last name successful.");
+		logger = report.startTest("Verify Marital Status on step-1 is correct."); 
+		  
+		  try 
+		  {
+			  
+		  String maritalStatus = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation","maritalStatus").get("Value").toString(); 
+		  Select objSelect = new Select(driver.findElement(By.name("marital_statusId")));
+		  String maritalStatusFromUI = objSelect.getFirstSelectedOption().getText();
+		  Assert.assertEquals(maritalStatus, maritalStatusFromUI);
+		  
+		  System.out.println("Marital Status from step-1 UI is:"+maritalStatusFromUI);
+		  System.out.println("Marital Status from data is:"+maritalStatus);
+		  
+		  logger.log(LogStatus.PASS, "Pass - Verify Marital Status is successful."); 
+		  } 
+		  catch
+		  (AssertionError e) { logger.log(LogStatus.FAIL, "Fail - Verify Marital Status is failed"); 
+		  } 
+		  report.endTest(logger);
+		  
 		
 		
+		  logger = report.startTest("Verify Preferred Language on step-1 is correct."); 
+		  
+		  try 
+		  {
+			  
+		  String preferredLanguage = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation","preferredLanguage").get("Value").toString(); 
+		  Select objSelect = new Select(driver.findElement(By.name("preferred_language")));
+		  String preferredLanguageFromUI = objSelect.getFirstSelectedOption().getText();
+		  Assert.assertEquals(preferredLanguage, preferredLanguageFromUI);
+		  
+		  System.out.println("Preferred Language from step-1 UI is:"+preferredLanguageFromUI);
+		  System.out.println("Preferred Language from data is:"+preferredLanguage);
+		  
+		  logger.log(LogStatus.PASS, "Pass - Verify Preferred Language is successful."); 
+		  } 
+		  catch
+		  (AssertionError e) { logger.log(LogStatus.FAIL, "Fail - Verify Preferred Language is failed"); 
+		  } 
+		  report.endTest(logger);
 		
-		       
+		
+		  
+		  logger = report.startTest("Verify Ethnicity on step-1 is correct."); 
+		  
+		  try 
+		  {
+			  
+		  String ethnicity = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation","ethnicity").get("Value").toString(); 
+		  Select objSelect = new Select(driver.findElement(By.name("ethnicity_id")));
+		  String ethnicityFromUI = objSelect.getFirstSelectedOption().getText();
+		  Assert.assertEquals(ethnicity, ethnicityFromUI);
+		  
+		  System.out.println("Ethnicity from step-1 UI is:"+ethnicityFromUI);
+		  System.out.println("Ethnicity from data is:"+ethnicity);
+		  
+		  logger.log(LogStatus.PASS, "Pass - Verify Ethnicity is successful."); 
+		  } 
+		  catch
+		  (AssertionError e) { logger.log(LogStatus.FAIL, "Fail - Verify Ethnicity is failed"); 
+		  } 
+		  report.endTest(logger);
+		  
+		  
+		  
+		  
+		  logger = report.startTest("Verify Cultural Identity on step-1 is correct."); 
+		  
+		  try 
+		  {
+			  
+		  String culturalIdentity = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation","culturalIdentity").get("Value").toString(); 
+		  Select objSelect = new Select(driver.findElement(By.name("cultural_identity")));
+		  String culturalIdentityFromUI = objSelect.getFirstSelectedOption().getText();
+		  Assert.assertEquals(culturalIdentity, culturalIdentityFromUI);
+		  
+		  System.out.println("Cultural Identity from step-1 UI is:"+culturalIdentityFromUI);
+		  System.out.println("Cultural Identity from data is:"+culturalIdentity);
+		  
+		  logger.log(LogStatus.PASS, "Pass - Verify Cultural Identity is successful."); 
+		  } 
+		  catch
+		  (AssertionError e) { logger.log(LogStatus.FAIL, "Fail - Verify Cultural Identity is failed"); 
+		  } 
+		  report.endTest(logger);
+		  
+		  
+		  logger = report.startTest("Verify Religion on step-1 is correct."); 
+		  
+		  try 
+		  {
+			  
+		  String religion = ExcelDriven_XLSX.readExcelData("Testdata", "UserCreation","religion").get("Value").toString(); 
+		  Select objSelect = new Select(driver.findElement(By.name("religion_id")));
+		  String religionFromUI = objSelect.getFirstSelectedOption().getText();
+		  Assert.assertEquals(religion, religionFromUI);
+		  
+		  System.out.println("Religion from step-1 UI is:"+religionFromUI);
+		  System.out.println("Religion from data is:"+religion);
+		  
+		  logger.log(LogStatus.PASS, "Pass - Verify Religion is successful."); 
+		  } 
+		  catch
+		  (AssertionError e) { logger.log(LogStatus.FAIL, "Fail - Verify Religion is failed"); 
+		  } 
+		  report.endTest(logger);
+		  
+		driver.findElement(By.xpath("//*[contains(text(),'OK')]")).click();
+		
+		
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loaderContainer")));
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'Save & Exit')]")));
         
@@ -1482,7 +1511,7 @@ public class VerifyUserCreation {
 		report.endTest(logger);
 	}
 
-	@Test(priority=4)
+	@Test(dependsOnMethods = {"TC004_VerifyResidentialDetailsMaritalStatusPrefLanguageAndReligionFromStep1"})
 	public void TC005_VerifyDeleteInquiryAfterCreation() throws Exception 
 	{
 		logger = report.startTest("TC003_VerifyDeleteInquiryAfterCreation");
